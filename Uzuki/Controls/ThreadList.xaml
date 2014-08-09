@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Uzuki.Controls.ThreadList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ScrollViewer VerticalScrollBarVisibility = "Auto">
+        <ListView Name="ThreadListView">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <Border BorderThickness="0">
+                        <ItemsPresenter Margin="0" />
+                    </Border>
+                </ControlTemplate>
+            </ItemsControl.Template>
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                    <!--<WrapPanel Orientation="Horizontal" />-->
+                    <!-- (3) <Grid /> -->
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="#FF707070" BorderThickness="0,0,0,0.1">
+                        <StackPanel Margin="5">
+                            <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="16">
+                            <Run Text="{Binding Title}" />
+                            </TextBlock>
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
+                            <Run Text="{Binding createdAt, StringFormat=yyyy/dd/MM hh:mm:ss}" />
+                            <Run Text=" "/>
+                            <Span Foreground="#FFAC2C2C"><Run Text="{Binding ResCount}"/></Span>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListView>
+    </ScrollViewer>
+</UserControl>

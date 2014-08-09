@@ -1,0 +1,60 @@
+﻿<controls:MetroWindow x:Class="Uzuki.Dialogs.MainWindow.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:v="clr-namespace:Uzuki.Controls"
+    BorderBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
+    EnableDWMDropShadow="True"
+    ResizeMode="CanResizeWithGrip"
+    Title="Uzuki::Honoka" Height="545" Width="906">
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button Content="settings" />
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+    <Grid x:Name="Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="TabCtrl" Grid.Column="0">
+            <TabItem Header="板一覧"
+                     controls:ControlsHelper.HeaderFontSize="18" >
+                <DockPanel>
+                    <StackPanel Margin="0" VerticalAlignment="Top" Background="#FF60B2E0" Orientation="Horizontal" Grid.ColumnSpan="2" DockPanel.Dock="Top">
+                        <Label Content="更新" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
+                    </StackPanel>
+                    <v:BoardList x:Name="BoardList" DockPanel.Dock="Bottom"/>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="スレッド一覧"
+                     controls:ControlsHelper.HeaderFontSize="18" >
+                <DockPanel>
+                    <StackPanel Margin="0" VerticalAlignment="Top" Background="#FF60B2E0" Orientation="Horizontal" DockPanel.Dock="Top">
+                        <Label Content="更新" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
+                        <Label Content="新しい順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
+                        <Label Content="勢い順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
+                        <Label Content="スレ順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
+                    </StackPanel>
+                    <v:ThreadList x:Name="ThreadList" DockPanel.Dock="Bottom"/>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+        <GridSplitter VerticalAlignment="Stretch" Width="2"/>
+        <Grid Grid.Column="1">
+            <Label Content="UZUKI::HONOKA" Margin="0" Background="{x:Null}" Foreground="#FF878787" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" FontWeight="Bold"/>
+            <v:ThreadView x:Name="ThreadView" />
+        </Grid>
+        <StackPanel Grid.Column="0" Grid.Row="1" Background="{DynamicResource AccentColorBrush}">
+            <Label x:Name="StatusLabel" Content="準備完了" Foreground="White" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1" Background="{DynamicResource AccentColorBrush}">
+
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>
