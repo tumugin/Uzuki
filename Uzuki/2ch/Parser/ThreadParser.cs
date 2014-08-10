@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Uzuki._2ch.Parser
@@ -14,6 +15,7 @@ namespace Uzuki._2ch.Parser
             List<_2ch.Objects.ThreadMesg> list = new List<Objects.ThreadMesg>();
             foreach (String line in Row)
             {
+                if (line == "") break;
                 Objects.ThreadMesg mesg = new Objects.ThreadMesg();
                 String[] lineSplit = line.Split(new String[] { "<>" }, StringSplitOptions.None);
                 mesg.Name = lineSplit[0];
@@ -21,8 +23,16 @@ namespace Uzuki._2ch.Parser
                 mesg.ID = lineSplit[2];
                 //HTMLタグとかを取り除く
                 mesg.Message = System.Web.HttpUtility.HtmlDecode(lineSplit[3]);
+                mesg.Message = mesg.Message.Replace("<br>", Environment.NewLine);
+                mesg.Message = Regex.Replace(mesg.Message, "<.*?>", "");
+                if (Regex.IsMatch(mesg.Message, @">>(\d+)"))
+                {
+                    //これはレスだ
+                    mesg.isReply = true;
+                }
+                list.Add(mesg);
             }
-            return null;
+            return list;
         }
     }
 }

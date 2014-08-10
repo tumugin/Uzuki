@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Navigation;
 
 namespace Uzuki.Dialogs.MainWindow
 {
@@ -14,6 +15,8 @@ namespace Uzuki.Dialogs.MainWindow
     {
         List<_2ch.Board> Boardlist = new List<_2ch.Board>();
         List<_2ch.BBSThread> Threadlist = new List<_2ch.BBSThread>();
+        List<_2ch.Objects.ThreadMesg> BBSThread = new List<_2ch.Objects.ThreadMesg>();
+        String BoardURL;
 
         //起動時の処理
         void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -22,15 +25,6 @@ namespace Uzuki.Dialogs.MainWindow
             StatusLabel.Content = "板リスト更新中...";
             Thread th = new Thread(getBoardAsync) { IsBackground = true };
             th.Start();
-            //てすと
-            List<_2ch.Objects.ThreadMesg> list = new List<_2ch.Objects.ThreadMesg>();
-            list.Add(new _2ch.Objects.ThreadMesg { Adress = "adress", Message = "てすとてすと", ID = "IDてすと", Name = "あああああああああ" });
-            list.Add(new _2ch.Objects.ThreadMesg { Adress = "adress", Message = "てすとてすと", ID = "IDてすと", Name = "あああああああああ" });
-            list.Add(new _2ch.Objects.ThreadMesg { Adress = "adress", Message = "てすとてすと", ID = "IDてすと", Name = "あああああああああ" });
-            list.Add(new _2ch.Objects.ThreadMesg { Adress = "adress", Message = "てすとてすと", ID = "IDてすと", Name = "あああああああああ" });
-            list.Add(new _2ch.Objects.ThreadMesg { Adress = "adress", Message = "てすとてすと", ID = "IDてすと", Name = "あああああああああ" });
-            list.Add(new _2ch.Objects.ThreadMesg { Adress = "adress", Message = "http://www.google.co.jp/", ID = "IDてすと", Name = "あああああああああ" });
-            ThreadView.ThreadListView.ItemsSource = list;
         }
 
         // 非同期的に板リストを取得し更新する
@@ -56,11 +50,13 @@ namespace Uzuki.Dialogs.MainWindow
             GetThreadListAsync gt = new GetThreadListAsync();
             _2ch.Board board = (_2ch.Board)BoardList.BoardListView.SelectedItem;
             gt.URL = board.URL + "/subject.txt";
+            BoardURL = board.URL;
             gt.Window = this;
             Thread thread = new Thread(gt.getListAsync);
             thread.Start();
         }
 
+        //非同期的にスレ一覧を取ってくるぞ
         class GetThreadListAsync
         {
             public String URL;
@@ -75,6 +71,41 @@ namespace Uzuki.Dialogs.MainWindow
                 {
                     Window.ThreadList.ThreadListView.ItemsSource = Window.Threadlist;
                     Window.TabCtrl.SelectedIndex = 1;
+                    Window.StatusLabel.Content = "準備完了";
+                }));
+            }
+        }
+
+        //スレッド選択
+        void ThreadListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ThreadList.ThreadListView.SelectedItem == null) return;
+            StatusLabel.Content = "スレッド更新中...";
+            GetThreadAsync gt = new GetThreadAsync();
+            _2ch.BBSThread th = (_2ch.BBSThread) ThreadList.ThreadListView.SelectedItem;
+            gt.URL = BoardURL + "/dat/" + th.DAT;
+            gt.Window = this;
+            gt.ThreadName = th.Title;
+            Thread thread = new Thread(gt.getListAsync);
+            thread.Start();
+        }
+
+        //非同期的にスレ一覧を取ってくるぞ
+        class GetThreadAsync
+        {
+            public String URL;
+            public MainWindow Window;
+            public String ThreadName;
+            //リスト先駆でスレリストを更新
+            public void getListAsync()
+            {
+                System.Net.WebClient wc = new System.Net.WebClient();
+                String text = wc.DownloadString(URL);
+                Window.BBSThread = _2ch.Parser.ThreadParser.ParseThread(text);
+                Window.Dispatcher.Invoke(new Action(() =>
+                {
+                    Window.BackgroundLabel.Text = ThreadName;
+                    Window.ThreadView.ThreadListView.ItemsSource = Window.BBSThread;
                     Window.StatusLabel.Content = "準備完了";
                 }));
             }

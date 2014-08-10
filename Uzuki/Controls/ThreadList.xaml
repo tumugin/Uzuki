@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <ScrollViewer VerticalScrollBarVisibility = "Auto">
-        <ListView Name="ThreadListView">
+        <ListView Name="ThreadListView" Style="{StaticResource VirtualisedMetroListView}">
             <ItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
                     <Border BorderThickness="0">
@@ -32,7 +32,6 @@
                             </TextBlock>
                             <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
                             <Run Text="{Binding createdAt, StringFormat=yyyy/dd/MM hh:mm:ss}" />
-                            <Run Text=" "/>
                             <Span Foreground="#FFAC2C2C"><Run Text="{Binding ResCount}"/></Span>
                             </TextBlock>
                         </StackPanel>

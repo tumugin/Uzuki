@@ -14,6 +14,10 @@ namespace Uzuki.Controls
 {
     public class HyperlinkText : TextBlock
     {
+        //イベントハンドラ
+        public static event EventHandler OnLinkClick = delegate { };
+        public static event EventHandler OnResClick = delegate { };
+
         private static Encoding m_Enc = Encoding.GetEncoding("Shift_JIS");
 
         public static readonly DependencyProperty ArticleContentProperty =
@@ -55,8 +59,9 @@ namespace Uzuki.Controls
             nl.Sort();
 
             // 正規表現でURLアドレスを検出
-            var regex = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[A-Z0-9-.,_/?%&=]*)?",
+            var regex = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[A-Z0-9-.,_/?%&=]*)?|>>(\d+)",
                 RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            var ReplyRegex = new Regex(@">>(\d+)");
             var text = msg.Replace("\r\n", "");
             var matchs = regex.Matches(text);
             if (matchs.Count > 0)
@@ -98,8 +103,17 @@ namespace Uzuki.Controls
                     // リンクの作成
                     var link = new Hyperlink();
                     link.TextDecorations = null;
-                    link.Foreground = tb.Foreground;
-                    link.NavigateUri = new Uri(tag);
+                    //link.Foreground = tb.Foreground;
+                    link.Foreground = Brushes.Blue;
+                    try
+                    {
+                        link.NavigateUri = new Uri(tag);
+                    }
+                    catch (Exception ex)
+                    {
+                        //解析できないリンク
+                        link.Click += link_Click;
+                    }
                     link.RequestNavigate += new RequestNavigateEventHandler(RequestNavigate);
                     link.MouseEnter += new MouseEventHandler(link_MouseEnter);
                     link.MouseLeave += new MouseEventHandler(link_MouseLeave);
@@ -150,12 +164,19 @@ namespace Uzuki.Controls
                 tb.Text = msg;
         }
 
+        static void link_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink link = (Hyperlink)sender;
+            if(link.NavigateUri == null) OnResClick(sender, e);
+        }
+
         private static void RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             try
             {
                 // URLリンクが選択された場合、既定のアプリケーション(ブラウザ)を起動する
-                Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+                //Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+                OnLinkClick(sender, e);
                 // 処理した場合はtrueを返す
                 e.Handled = true;
             }
@@ -172,7 +193,7 @@ namespace Uzuki.Controls
                 return;
 
             // リンクにカーソルを当てたときは文字色を赤くする
-            link.Foreground = Brushes.Red;
+            //link.Foreground = Brushes.Red;
         }
 
         private static void link_MouseLeave(object sender, MouseEventArgs e)
@@ -183,7 +204,7 @@ namespace Uzuki.Controls
                 return;
 
             // リンクからカーソルが離れたときは文字色をデフォルトカラーに戻す
-            link.Foreground = parent.Foreground;
+            //link.Foreground = parent.Foreground;
         }
     }
 }

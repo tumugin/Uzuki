@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <ScrollViewer VerticalScrollBarVisibility = "Auto">
-        <ListView Name="BoardListView">
+        <ListView Name="BoardListView" Style="{StaticResource VirtualisedMetroListView}">
             <ItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
                     <Border BorderThickness="0">

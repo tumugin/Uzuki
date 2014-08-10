@@ -8,9 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        
+
         <ScrollViewer VerticalScrollBarVisibility = "Auto">
-            <ListView Name="ThreadListView">
+            <ListView Name="ThreadListView" Style="{StaticResource VirtualisedMetroListView}">
                 <ItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
                         <Border BorderThickness="0">
@@ -26,16 +26,43 @@
                         <!-- (3) <Grid /> -->
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                
+
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="OverridesDefaultStyle" Value="True" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ContentControl}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{x:Null}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{x:Null}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding isReply}" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke" />
+                                <Setter Property="Opacity" Value="0.95" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
                 <ItemsControl.Resources>
                     <converters:ListBoxIndexConverter x:Key="listBoxIndexConverter" />
                 </ItemsControl.Resources>
-                
+
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="#FF707070" BorderThickness="0,0,0,0.1">
                             <StackPanel Margin="5">
-                                <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="13">
+                                <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="13" Foreground="#FF515151">
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource listBoxIndexConverter}">
                                             <Binding />
@@ -47,10 +74,12 @@
                                     <Run Text="{Binding Adress}" />
                                     <Run Text="{Binding ID}" />
                                 </TextBlock>
-                                <TextBlock TextWrapping="Wrap" Margin="5" FontSize="15" Text="{Binding Message}">
-                                    <link:HyperlinkText.Inline>
-                                        <Binding Path="Message" />
-                                    </link:HyperlinkText.Inline>
+                                <TextBlock TextWrapping="Wrap" Margin="5" FontSize="15">
+                                    <link:HyperlinkText>
+                                        <link:HyperlinkText.Inline>
+                                            <Binding Path="Message" />
+                                        </link:HyperlinkText.Inline>
+                                    </link:HyperlinkText>
                                 </TextBlock>
                             </StackPanel>
                         </Border>

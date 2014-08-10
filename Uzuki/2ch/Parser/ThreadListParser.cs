@@ -23,7 +23,7 @@ namespace Uzuki._2ch.Parser
                 thread.createdAt = _2ch.Tools.UnixTime.FromUnixTime(thread.UnixTime);
                 MatchCollection mc = Regex.Matches(LineSplit[1],@"(.*.)\((\d+)\)");
                 thread.ResCount = int.Parse(mc[0].Groups[2].Value);
-                thread.Title = mc[0].Groups[1].Value;
+                thread.Title = System.Web.HttpUtility.HtmlDecode(mc[0].Groups[1].Value);
                 threadList.Add(thread);
             }
             return threadList;

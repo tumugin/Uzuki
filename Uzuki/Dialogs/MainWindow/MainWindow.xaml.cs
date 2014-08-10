@@ -27,6 +27,7 @@ namespace Uzuki.Dialogs.MainWindow
             InitializeComponent();
             ContentRendered += MainWindow_ContentRendered;
             BoardList.BoardListView.SelectionChanged += BoardListView_SelectionChanged;
+            ThreadList.ThreadListView.SelectionChanged += ThreadListView_SelectionChanged;
         }
     }
 }

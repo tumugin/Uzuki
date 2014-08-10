@@ -47,7 +47,7 @@
         </TabControl>
         <GridSplitter VerticalAlignment="Stretch" Width="2"/>
         <Grid Grid.Column="1">
-            <Label Content="UZUKI::HONOKA" Margin="0" Background="{x:Null}" Foreground="#FF878787" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" FontWeight="Bold"/>
+            <TextBlock x:Name="BackgroundLabel" Text="UZUKI::HONOKA" Margin="0" Background="{x:Null}" Foreground="#FFE2E2E2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" FontWeight="Bold" TextWrapping="Wrap"/>
             <v:ThreadView x:Name="ThreadView" />
         </Grid>
         <StackPanel Grid.Column="0" Grid.Row="1" Background="{DynamicResource AccentColorBrush}">
