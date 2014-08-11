@@ -10,7 +10,11 @@
     Title="Uzuki::Honoka" Height="545" Width="906">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Content="settings" />
+            <Button Content="🔺" />
+            <Button Content="🔻" />
+            <Button Content="書き込み" />
+            <Button Content="更新" />
+            <Button Content="設定" />
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid x:Name="Grid">
@@ -27,7 +31,7 @@
                      controls:ControlsHelper.HeaderFontSize="18" >
                 <DockPanel>
                     <StackPanel Margin="0" VerticalAlignment="Top" Background="#FF60B2E0" Orientation="Horizontal" Grid.ColumnSpan="2" DockPanel.Dock="Top">
-                        <Label Content="更新" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
+                        <Label Content="更新" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown"/>
                     </StackPanel>
                     <v:BoardList x:Name="BoardList" DockPanel.Dock="Bottom"/>
                 </DockPanel>
@@ -36,10 +40,10 @@
                      controls:ControlsHelper.HeaderFontSize="18" >
                 <DockPanel>
                     <StackPanel Margin="0" VerticalAlignment="Top" Background="#FF60B2E0" Orientation="Horizontal" DockPanel.Dock="Top">
-                        <Label Content="更新" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
-                        <Label Content="新しい順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
-                        <Label Content="勢い順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
-                        <Label Content="スレ順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand"/>
+                        <Label Content="更新" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_1"/>
+                        <Label Content="新しい順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_2"/>
+                        <Label Content="書き込み数順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_3"/>
+                        <Label Content="スレ順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_4"/>
                     </StackPanel>
                     <v:ThreadList x:Name="ThreadList" DockPanel.Dock="Bottom"/>
                 </DockPanel>

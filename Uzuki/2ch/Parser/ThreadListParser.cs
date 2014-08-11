@@ -13,6 +13,7 @@ namespace Uzuki._2ch.Parser
         {
             String[] Row = text.Split(new string[] { "\n", Environment.NewLine }, StringSplitOptions.None);
             List<BBSThread> threadList = new List<BBSThread>();
+            int counter = 0;
             foreach (String line in Row)
             {
                 if (line == "") break;
@@ -24,6 +25,8 @@ namespace Uzuki._2ch.Parser
                 MatchCollection mc = Regex.Matches(LineSplit[1],@"(.*.)\((\d+)\)");
                 thread.ResCount = int.Parse(mc[0].Groups[2].Value);
                 thread.Title = System.Web.HttpUtility.HtmlDecode(mc[0].Groups[1].Value);
+                thread.Number = counter;
+                counter++;
                 threadList.Add(thread);
             }
             return threadList;

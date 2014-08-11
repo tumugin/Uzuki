@@ -12,6 +12,7 @@ namespace Uzuki._2ch.Objects
         public String ID { get; set; }
         public String Adress { get; set; }
         public String Message { get; set; }
+        public String AuthorID { get; set; }
         public bool isThreadNushi { get; set; }
         public bool isReply { get; set; }
     }

@@ -21,7 +21,7 @@
                             <Run Text="{Binding Title}" />
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
-                            <Run Text="{Binding createdAt, StringFormat=yyyy/dd/MM hh:mm:ss}" />
+                            <Run Text="{Binding createdAt, StringFormat=yyyy/MM/dd hh:mm:ss}" />
                             <Span Foreground="#FFAC2C2C"><Run Text="{Binding ResCount}"/></Span>
                         </TextBlock>
                     </StackPanel>

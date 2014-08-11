@@ -13,5 +13,6 @@ namespace Uzuki._2ch
         public int ResCount { get; set; }
         public DateTime createdAt { get; set; }
         public long UnixTime { get; set; }
+        public int Number;
     }
 }

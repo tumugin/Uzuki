@@ -38,6 +38,10 @@
                         <Setter Property="Background" Value="WhiteSmoke" />
                         <Setter Property="Opacity" Value="0.8" />
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding isThreadNushi}" Value="True">
+                        <Setter Property="Background" Value="SkyBlue" />
+                        <Setter Property="Opacity" Value="0.8" />
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
         </ListView.ItemContainerStyle>

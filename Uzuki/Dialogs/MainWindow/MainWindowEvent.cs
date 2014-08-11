@@ -71,6 +71,7 @@ namespace Uzuki.Dialogs.MainWindow
                 Window.Dispatcher.Invoke(new Action(() =>
                 {
                     Window.ThreadList.ThreadListView.ItemsSource = Window.Threadlist;
+                    Window.ThreadList.ThreadListView.ScrollIntoView(Window.ThreadList.ThreadListView.Items[0]);
                     Window.TabCtrl.SelectedIndex = 1;
                     Window.StatusLabel.Content = "準備完了";
                 }));
@@ -107,6 +108,7 @@ namespace Uzuki.Dialogs.MainWindow
                 {
                     Window.BackgroundLabel.Text = ThreadName;
                     Window.ThreadView.ThreadListView.ItemsSource = Window.BBSThread;
+                    Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[0]);
                     Window.StatusLabel.Content = "準備完了";
                 }));
             }
