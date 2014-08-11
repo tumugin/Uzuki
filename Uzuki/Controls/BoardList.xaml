@@ -5,54 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <ScrollViewer VerticalScrollBarVisibility = "Auto">
-        <ListView Name="BoardListView" Style="{StaticResource VirtualisedMetroListView}">
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="ItemsControl">
-                    <Border BorderThickness="0">
-                        <ItemsPresenter Margin="0" />
-                    </Border>
-                </ControlTemplate>
-            </ItemsControl.Template>
-            
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" />
-                    <!--<WrapPanel Orientation="Horizontal" />-->
-                    <!-- (3) <Grid /> -->
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Margin="5">
+    <ListView Name="BoardListView"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          ScrollViewer.PanningMode="VerticalOnly"
+          ScrollViewer.VerticalScrollBarVisibility="Auto"
+          VirtualizingPanel.IsVirtualizing="True"
+          VirtualizingPanel.ScrollUnit="Pixel"
+          Background="Transparent" BorderThickness="0">
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Margin="5">
                         <Run Text="{Binding Name}" />
-                    </TextBlock>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="{x:Type GroupItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Expander IsExpanded="False">
-                                            <Expander.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Name}" Foreground="White" FontSize="22" />
-                                                </StackPanel>
-                                            </Expander.Header>
-                                            <ItemsPresenter />
-                                        </Expander>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>
-                </GroupStyle>
-            </ListView.GroupStyle>
-        </ListView>
-    </ScrollViewer>
+                </TextBlock>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+        <ListView.GroupStyle>
+            <GroupStyle>
+                <GroupStyle.ContainerStyle>
+                    <Style TargetType="{x:Type GroupItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Expander IsExpanded="False">
+                                        <Expander.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Name}" Foreground="White" FontSize="22" />
+                                            </StackPanel>
+                                        </Expander.Header>
+                                        <ItemsPresenter />
+                                    </Expander>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </GroupStyle.ContainerStyle>
+            </GroupStyle>
+        </ListView.GroupStyle>
+    </ListView>
 </UserControl>

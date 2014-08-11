@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,9 +14,9 @@ namespace Uzuki.Dialogs.MainWindow
 {
     public partial class MainWindow : MetroWindow
     {
-        List<_2ch.Board> Boardlist = new List<_2ch.Board>();
-        List<_2ch.BBSThread> Threadlist = new List<_2ch.BBSThread>();
-        List<_2ch.Objects.ThreadMesg> BBSThread = new List<_2ch.Objects.ThreadMesg>();
+        ObservableCollection<_2ch.Board> Boardlist = new ObservableCollection<_2ch.Board>();
+        ObservableCollection<_2ch.BBSThread> Threadlist = new ObservableCollection<_2ch.BBSThread>();
+        ObservableCollection<_2ch.Objects.ThreadMesg> BBSThread = new ObservableCollection<_2ch.Objects.ThreadMesg>();
         String BoardURL;
 
         //起動時の処理
@@ -32,7 +33,7 @@ namespace Uzuki.Dialogs.MainWindow
         {
             System.Net.WebClient wc = new System.Net.WebClient();
             String html = wc.DownloadString("http://2ch.sc/bbsmenu.html");
-            Boardlist = _2ch.Parser.BBSMenuParser.ParseBBSMenuHTML(html);
+            Boardlist = new ObservableCollection<_2ch.Board>(_2ch.Parser.BBSMenuParser.ParseBBSMenuHTML(html));
             Dispatcher.Invoke(new Action(() =>
             {
                 BoardList.BoardListView.ItemsSource = Boardlist;
@@ -66,7 +67,7 @@ namespace Uzuki.Dialogs.MainWindow
             {
                 System.Net.WebClient wc = new System.Net.WebClient();
                 String text = wc.DownloadString(URL);
-                Window.Threadlist = _2ch.Parser.ThreadListParser.ParseThread(text);
+                Window.Threadlist = new ObservableCollection<_2ch.BBSThread>(_2ch.Parser.ThreadListParser.ParseThread(text));
                 Window.Dispatcher.Invoke(new Action(() =>
                 {
                     Window.ThreadList.ThreadListView.ItemsSource = Window.Threadlist;
@@ -101,7 +102,7 @@ namespace Uzuki.Dialogs.MainWindow
             {
                 System.Net.WebClient wc = new System.Net.WebClient();
                 String text = wc.DownloadString(URL);
-                Window.BBSThread = _2ch.Parser.ThreadParser.ParseThread(text);
+                Window.BBSThread = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
                 Window.Dispatcher.Invoke(new Action(() =>
                 {
                     Window.BackgroundLabel.Text = ThreadName;

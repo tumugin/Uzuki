@@ -5,39 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <ScrollViewer VerticalScrollBarVisibility = "Auto">
-        <ListView Name="ThreadListView" Style="{StaticResource VirtualisedMetroListView}">
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="ItemsControl">
-                    <Border BorderThickness="0">
-                        <ItemsPresenter Margin="0" />
-                    </Border>
-                </ControlTemplate>
-            </ItemsControl.Template>
+    <ListView Name="ThreadListView" ScrollViewer.CanContentScroll="True"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          ScrollViewer.PanningMode="VerticalOnly"
+          ScrollViewer.VerticalScrollBarVisibility="Auto"
+          VirtualizingPanel.IsVirtualizing="True"
+          VirtualizingPanel.ScrollUnit="Pixel"
+          Background="Transparent" BorderThickness="0">
 
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" />
-                    <!--<WrapPanel Orientation="Horizontal" />-->
-                    <!-- (3) <Grid /> -->
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="#FF707070" BorderThickness="0,0,0,0.1">
-                        <StackPanel Margin="5">
-                            <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="16">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Border BorderBrush="#FF707070" BorderThickness="0,0,0,0.1">
+                    <StackPanel Margin="5">
+                        <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="16">
                             <Run Text="{Binding Title}" />
-                            </TextBlock>
-                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
                             <Run Text="{Binding createdAt, StringFormat=yyyy/dd/MM hh:mm:ss}" />
                             <Span Foreground="#FFAC2C2C"><Run Text="{Binding ResCount}"/></Span>
-                            </TextBlock>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ListView>
-    </ScrollViewer>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </UserControl>
