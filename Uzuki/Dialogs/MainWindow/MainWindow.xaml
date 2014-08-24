@@ -10,10 +10,10 @@
     Title="Uzuki::Honoka" Height="545" Width="906">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Content="🔺" />
-            <Button Content="🔻" />
+            <Button Content="🔺" Click="Button_Click" />
+            <Button Content="🔻" Click="Button_Click_1" />
             <Button Content="書き込み" />
-            <Button Content="更新" />
+            <Button Content="更新" Click="Button_Click_2" />
             <Button Content="設定" />
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>

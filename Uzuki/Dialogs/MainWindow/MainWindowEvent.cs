@@ -18,21 +18,32 @@ namespace Uzuki.Dialogs.MainWindow
         ObservableCollection<_2ch.BBSThread> Threadlist = new ObservableCollection<_2ch.BBSThread>();
         ObservableCollection<_2ch.Objects.ThreadMesg> BBSThread = new ObservableCollection<_2ch.Objects.ThreadMesg>();
         String BoardURL;
+        _2ch.BBSThread SelectedThread;
+        Settings.SettingManager SetMannage;
 
         //起動時の処理
         void MainWindow_ContentRendered(object sender, EventArgs e)
         {
+            //Load setting
+            SetMannage = Settings.SettingManager.LoadSettings();
             //Initialize
             StatusLabel.Content = "板リスト更新中...";
             Thread th = new Thread(getBoardAsync) { IsBackground = true };
             th.Start();
         }
 
+        //終了時の処理
+        void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //設定を保存するよ
+            SetMannage.SaveSettings();
+        }
+
         // 非同期的に板リストを取得し更新する
         void getBoardAsync()
         {
             System.Net.WebClient wc = new System.Net.WebClient();
-            String html = wc.DownloadString("http://2ch.sc/bbsmenu.html");
+            String html = wc.DownloadString(SetMannage.BBSMenuPath);
             Boardlist = new ObservableCollection<_2ch.Board>(_2ch.Parser.BBSMenuParser.ParseBBSMenuHTML(html));
             Dispatcher.Invoke(new Action(() =>
             {
@@ -85,6 +96,7 @@ namespace Uzuki.Dialogs.MainWindow
             StatusLabel.Content = "スレッド更新中...";
             GetThreadAsync gt = new GetThreadAsync();
             _2ch.BBSThread th = (_2ch.BBSThread) ThreadList.ThreadListView.SelectedItem;
+            SelectedThread = th;
             gt.URL = BoardURL + "/dat/" + th.DAT;
             gt.Window = this;
             gt.ThreadName = th.Title;

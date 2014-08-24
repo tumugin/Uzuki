@@ -27,6 +27,7 @@ namespace Uzuki.Dialogs.MainWindow
         {
             InitializeComponent();
             ContentRendered += MainWindow_ContentRendered;
+            Closing += MainWindow_Closing;
             BoardList.BoardListView.SelectionChanged += BoardListView_SelectionChanged;
             ThreadList.ThreadListView.SelectionChanged += ThreadListView_SelectionChanged;
         }
@@ -68,6 +69,46 @@ namespace Uzuki.Dialogs.MainWindow
             var query = from th in Threadlist orderby th.Number select th;
             Threadlist = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
             ThreadList.ThreadListView.ItemsSource = Threadlist;
+        }
+
+        //上までスクロールする
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ThreadView.ThreadListView.ScrollIntoView(ThreadView.ThreadListView.Items[0]);
+            }
+            catch (Exception ex)
+            {
+                //何もしない
+            }
+        }
+
+        //下までスクロールする
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ThreadView.ThreadListView.ScrollIntoView(ThreadView.ThreadListView.Items[ThreadView.ThreadListView.Items.Count - 1]);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        //スレ更新
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (SelectedThread == null) return;
+            StatusLabel.Content = "スレッド更新中...";
+            GetThreadAsync gt = new GetThreadAsync();
+            _2ch.BBSThread th = SelectedThread;
+            gt.URL = BoardURL + "/dat/" + th.DAT;
+            gt.Window = this;
+            gt.ThreadName = th.Title;
+            Thread thread = new Thread(gt.getListAsync);
+            thread.Start();
         }
     }
 }

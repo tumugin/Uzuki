@@ -65,16 +65,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="2ch\Objects\ThreadHistoryObj.cs" />
     <Compile Include="2ch\Objects\ThreadMesg.cs" />
     <Compile Include="2ch\Parser\BBSMenuParser.cs" />
     <Compile Include="2ch\Parser\ThreadListParser.cs" />
     <Compile Include="2ch\Parser\ThreadParser.cs" />
     <Compile Include="2ch\Tools\UnixTime.cs" />
+    <Compile Include="2ch\Write\WriteObject.cs" />
     <Compile Include="Controls\HyperlinkText.cs" />
     <Compile Include="Controls\ListBoxIndexConverter.cs" />
     <Compile Include="Controls\ThreadList.xaml.cs">
       <DependentUpon>ThreadList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\SettingManager.cs" />
     <Page Include="Controls\BoardList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
