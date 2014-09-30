@@ -52,23 +52,23 @@ namespace Uzuki.Dialogs.MainWindow
 
         private void Label_MouseDown_2(object sender, MouseButtonEventArgs e)
         {
-            var query = from th in Threadlist orderby th.createdAt descending select th;
-            Threadlist = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
-            ThreadList.ThreadListView.ItemsSource = Threadlist;
+            var query = from th in (ObservableCollection<_2ch.BBSThread>)ThreadList.ThreadListView.ItemsSource orderby th.createdAt descending select th;
+            ObservableCollection<_2ch.BBSThread> list = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
+            ThreadList.ThreadListView.ItemsSource = list;
         }
 
         private void Label_MouseDown_3(object sender, MouseButtonEventArgs e)
         {
-            var query = from th in Threadlist orderby th.ResCount descending select th;
-            Threadlist = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
-            ThreadList.ThreadListView.ItemsSource = Threadlist;
+            var query = from th in (ObservableCollection<_2ch.BBSThread>)ThreadList.ThreadListView.ItemsSource orderby th.ResCount descending select th;
+            ObservableCollection<_2ch.BBSThread> list = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
+            ThreadList.ThreadListView.ItemsSource = list;
         }
 
         private void Label_MouseDown_4(object sender, MouseButtonEventArgs e)
         {
-            var query = from th in Threadlist orderby th.Number select th;
-            Threadlist = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
-            ThreadList.ThreadListView.ItemsSource = Threadlist;
+            var query = from th in (ObservableCollection<_2ch.BBSThread>)ThreadList.ThreadListView.ItemsSource orderby th.Number select th;
+            ObservableCollection<_2ch.BBSThread> list = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
+            ThreadList.ThreadListView.ItemsSource = list;
         }
 
         //上までスクロールする
@@ -109,6 +109,22 @@ namespace Uzuki.Dialogs.MainWindow
             gt.ThreadName = th.Title;
             Thread thread = new Thread(gt.getListAsync);
             thread.Start();
+        }
+
+        //検索ボックス
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var query = from th in Threadlist where th.Title.Contains(SearchTextbox.Text) select th;
+            ObservableCollection<_2ch.BBSThread> list = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
+            ThreadList.ThreadListView.ItemsSource = list;
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
+            writewindow.URL = BoardURL + "/test/read.cgi/" + SelectedThread.UnixTime.ToString() + "/";
+            writewindow.cc = SetMannage.Cookie;
+            writewindow.Show();
         }
     }
 }

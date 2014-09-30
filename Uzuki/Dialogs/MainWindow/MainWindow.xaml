@@ -12,7 +12,7 @@
         <controls:WindowCommands>
             <Button Content="🔺" Click="Button_Click" />
             <Button Content="🔻" Click="Button_Click_1" />
-            <Button Content="書き込み" />
+            <Button Content="書き込み" Click="Button_Click_3" />
             <Button Content="更新" Click="Button_Click_2" />
             <Button Content="設定" />
         </controls:WindowCommands>
@@ -45,6 +45,7 @@
                         <Label Content="書き込み数順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_3"/>
                         <Label Content="スレ順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_4"/>
                     </StackPanel>
+                    <TextBox x:Name="SearchTextbox" DockPanel.Dock="Top" TextChanged="TextBox_TextChanged"/>
                     <v:ThreadList x:Name="ThreadList" DockPanel.Dock="Bottom"/>
                 </DockPanel>
             </TabItem>

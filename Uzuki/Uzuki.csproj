@@ -23,6 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,6 +79,9 @@
     <Compile Include="Controls\ThreadList.xaml.cs">
       <DependentUpon>ThreadList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\WriteWindow\WriteWindow.xaml.cs">
+      <DependentUpon>WriteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\SettingManager.cs" />
     <Page Include="Controls\BoardList.xaml">
       <SubType>Designer</SubType>
@@ -110,6 +115,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Dialogs\WriteWindow\WriteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\MainWindow\MainWindowEvent.cs" />

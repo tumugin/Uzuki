@@ -15,7 +15,7 @@ namespace Uzuki.Settings
         public const String SETTING_FILE_NAME = "setting.xml";
         public CookieContainer Cookie = new CookieContainer();
         public List<_2ch.Objects.ThreadHistoryObj> ThreadHistory = new List<_2ch.Objects.ThreadHistoryObj>();
-        public String BBSMenuPath = "http://2ch.sc/bbsmenu.html";
+        public String BBSMenuPath = "http://menu.2ch.net/bbsmenu.html";
 
         public void SaveSettings()
         {
