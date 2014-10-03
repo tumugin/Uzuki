@@ -122,7 +122,8 @@ namespace Uzuki.Dialogs.MainWindow
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
-            writewindow.URL = BoardURL + "/test/read.cgi/" + SelectedThread.UnixTime.ToString() + "/";
+            Uri ur = new Uri(BoardURL);
+            writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SelectedThread.UnixTime.ToString() + "/";
             writewindow.cc = SetMannage.Cookie;
             writewindow.Show();
         }

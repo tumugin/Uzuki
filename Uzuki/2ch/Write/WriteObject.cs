@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using Uzuki._2ch.Tools;
 
 namespace Uzuki._2ch.Write
 {
@@ -138,13 +139,14 @@ namespace Uzuki._2ch.Write
 		/// </summary>
 		protected byte[] MakeWriteParam(string Name, string Mail, string Message)
 		{
-			return Encoding.ASCII.GetBytes(string.Concat(new string[]
+            String str = string.Concat(new string[]
 			{
 				"bbs=",
 				this.BoardKey,
 				"&key=",
 				this.ThreadKey,
-				"&time=1&submit=",
+				"&time=",UnixTime.ToUnixTime(DateTime.Now).ToString(),
+                "&submit=",
 				HttpUtility.UrlEncode(Writer.WriteSumbit, Writer.WriteEncoding),
 				"&FROM=",
 				HttpUtility.UrlEncode(Name, Writer.WriteEncoding),
@@ -152,18 +154,20 @@ namespace Uzuki._2ch.Write
 				HttpUtility.UrlEncode(Mail, Writer.WriteEncoding),
 				"&MESSAGE=",
 				HttpUtility.UrlEncode(Message, Writer.WriteEncoding)
-			}));
+			});
+			return Encoding.ASCII.GetBytes(str);
 		}
 		/// <summary>
 		/// スレッド作成の際bbs.cgiに渡す引数を作成
 		/// </summary>
 		protected byte[] MakeCreateThreadParam(string Name, string Mail, string Message, string Subject)
 		{
-			return Encoding.ASCII.GetBytes(string.Concat(new string[]
+            String str = string.Concat(new string[]
 			{
 				"bbs=",
 				this.BoardKey,
-				"&time=1&submit=",
+				"&time=",UnixTime.ToUnixTime(DateTime.Now).ToString(),
+                "&submit=",
 				HttpUtility.UrlEncode(this.CreateThreadSumbit, Writer.WriteEncoding),
 				"&subject=",
 				HttpUtility.UrlEncode(Subject, Writer.WriteEncoding),
@@ -173,7 +177,8 @@ namespace Uzuki._2ch.Write
 				HttpUtility.UrlEncode(Mail, Writer.WriteEncoding),
 				"&MESSAGE=",
 				HttpUtility.UrlEncode(Message, Writer.WriteEncoding)
-			}));
+			});
+			return Encoding.ASCII.GetBytes(str);
 		}
     }
 

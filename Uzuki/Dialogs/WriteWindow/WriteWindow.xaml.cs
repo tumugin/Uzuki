@@ -45,7 +45,9 @@ namespace Uzuki.Dialogs.WriteWindow
             {
                 Writer writer = new Writer(URL);
                 writer.CookieContainer = new CookieContainer();
-                writer.CookieContainer.SetCookies(new Uri(writer.PostURL), @"");
+                //writer.CookieContainer.Add(new Cookie("READJS", "off") { Domain = new Uri(writer.PostURL).Host});
+                //writer.CookieContainer.Add(new Cookie("MAIL", "") { Domain = new Uri(writer.PostURL).Host });
+                //writer.CookieContainer.Add(new Cookie("NAME", "") { Domain = new Uri(writer.PostURL).Host });
                 String Name = "", Mail = "", Message = "";
                 Dispatcher.Invoke(new Action(() =>
                 {
