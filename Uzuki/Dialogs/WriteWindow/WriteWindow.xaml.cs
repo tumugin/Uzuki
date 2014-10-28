@@ -44,7 +44,7 @@ namespace Uzuki.Dialogs.WriteWindow
             try
             {
                 Writer writer = new Writer(URL);
-                writer.CookieContainer = new CookieContainer();
+                writer.CookieContainer = cc;
                 //writer.CookieContainer.Add(new Cookie("READJS", "off") { Domain = new Uri(writer.PostURL).Host});
                 //writer.CookieContainer.Add(new Cookie("MAIL", "") { Domain = new Uri(writer.PostURL).Host });
                 //writer.CookieContainer.Add(new Cookie("NAME", "") { Domain = new Uri(writer.PostURL).Host });

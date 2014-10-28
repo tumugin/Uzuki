@@ -49,6 +49,11 @@
         <ListView.Resources>
             <converters:ListBoxIndexConverter x:Key="listBoxIndexConverter" />
         </ListView.Resources>
+        <ListView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="返信"/>
+            </ContextMenu>
+        </ListView.ContextMenu>
 
         <ListView.ItemTemplate>
             <DataTemplate>

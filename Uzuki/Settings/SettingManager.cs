@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -13,6 +14,10 @@ namespace Uzuki.Settings
     {
         [System.Xml.Serialization.XmlIgnore]
         public const String SETTING_FILE_NAME = "setting.xml";
+        [System.Xml.Serialization.XmlIgnore]
+        public const String COOKIE_FILE_NAME = "cookie";
+        //CookieContainerはXMLシリアライズ出来ない(許さない)
+        [System.Xml.Serialization.XmlIgnore]
         public CookieContainer Cookie = new CookieContainer();
         public List<_2ch.Objects.ThreadHistoryObj> ThreadHistory = new List<_2ch.Objects.ThreadHistoryObj>();
         public String BBSMenuPath = "http://menu.2ch.net/bbsmenu.html";
@@ -23,6 +28,26 @@ namespace Uzuki.Settings
             StreamWriter sw = new StreamWriter(GetAppPath() + @"\" + SETTING_FILE_NAME, false, new System.Text.UTF8Encoding(false));
             serializer.Serialize(sw, this);
             sw.Close();
+            SaveCookie();
+        }
+
+        public void SaveCookie()
+        {
+            Stream stream = File.Create(GetAppPath() + @"\" + COOKIE_FILE_NAME);
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, Cookie);
+            stream.Close();
+        }
+
+        public void LoadCookie()
+        {
+            if (File.Exists(GetAppPath() + @"\" + COOKIE_FILE_NAME))
+            {
+                Stream stream = File.Open(GetAppPath() + @"\" + COOKIE_FILE_NAME, FileMode.Open);
+                BinaryFormatter formatter = new BinaryFormatter();
+                Cookie = (CookieContainer)formatter.Deserialize(stream);
+                stream.Close();
+            }
         }
 
         public static SettingManager LoadSettings()
@@ -36,6 +61,7 @@ namespace Uzuki.Settings
             StreamReader sw = new StreamReader(GetAppPath() + @"\" + SETTING_FILE_NAME, new System.Text.UTF8Encoding(false));
             SettingManager sm = (SettingManager)serializer.Deserialize(sw);
             sw.Close();
+            sm.LoadCookie();
             return sm;
         }
 
