@@ -14,6 +14,13 @@
           VirtualizingPanel.IsVirtualizing="True"
           VirtualizingPanel.ScrollUnit="Pixel"
           Background="Transparent" BorderThickness="0">
+        
+        <ListView.Resources>
+            <converters:ListBoxIndexConverter x:Key="listBoxIndexConverter" />
+            <ContextMenu x:Key="ItemContextMenu">
+                <MenuItem x:Name="ReplyMenuItem" Header="返信"/>
+            </ContextMenu>
+        </ListView.Resources>
 
         <ListView.ItemContainerStyle>
             <Style TargetType="ListBoxItem">
@@ -27,6 +34,7 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
                         <Setter Property="Background" Value="{x:Null}" />
@@ -38,26 +46,25 @@
                         <Setter Property="Background" Value="WhiteSmoke" />
                         <Setter Property="Opacity" Value="0.8" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding isThreadNushi}" Value="True">
-                        <Setter Property="Background" Value="SkyBlue" />
-                        <Setter Property="Opacity" Value="0.8" />
-                    </DataTrigger>
                 </Style.Triggers>
             </Style>
         </ListView.ItemContainerStyle>
 
-        <ListView.Resources>
-            <converters:ListBoxIndexConverter x:Key="listBoxIndexConverter" />
-        </ListView.Resources>
-        <ListView.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="返信"/>
-            </ContextMenu>
-        </ListView.ContextMenu>
-
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border BorderBrush="#FF707070" BorderThickness="0,0,0,0.1">
+                <Border BorderThickness="5,0,0,0.1">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding isThreadNushi}" Value="True">
+                                    <Setter Property="BorderBrush" Value="#FF9E2D2D" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding isThreadNushi}" Value="False">
+                                    <Setter Property="BorderBrush" Value="#FF707070" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                     <StackPanel Margin="5">
                         <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="13" Foreground="#FF515151">
                             <TextBlock.Text>

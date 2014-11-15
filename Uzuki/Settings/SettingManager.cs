@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -19,8 +20,9 @@ namespace Uzuki.Settings
         //CookieContainerはXMLシリアライズ出来ない(許さない)
         [System.Xml.Serialization.XmlIgnore]
         public CookieContainer Cookie = new CookieContainer();
-        public List<_2ch.Objects.ThreadHistoryObj> ThreadHistory = new List<_2ch.Objects.ThreadHistoryObj>();
         public String BBSMenuPath = "http://menu.2ch.net/bbsmenu.html";
+        //履歴
+        public ObservableCollection<_2ch.BBSThread> ThreadHistoryList = new ObservableCollection<_2ch.BBSThread>();
 
         public void SaveSettings()
         {

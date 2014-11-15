@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Uzuki._2ch.Objects;
 
 namespace Uzuki.Dialogs.MainWindow
 {
@@ -30,6 +31,20 @@ namespace Uzuki.Dialogs.MainWindow
             Closing += MainWindow_Closing;
             BoardList.BoardListView.SelectionChanged += BoardListView_SelectionChanged;
             ThreadList.ThreadListView.SelectionChanged += ThreadListView_SelectionChanged;
+            BoardHistoryList.ThreadListView.SelectionChanged += ThreadListView_SelectionChanged;
+            //キレそう
+            MenuItem menuItem = (from MenuItem item in ((ContextMenu)ThreadView.ThreadListView.Resources["ItemContextMenu"]).Items where item.Name == "ReplyMenuItem" select item).First();
+            menuItem.Click += ReplyMenuItem_Click;
+        }
+
+        void ReplyMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
+            Uri ur = new Uri(BoardURL);
+            writewindow.MessageTextBox.Text = ">>" + (ThreadView.ThreadListView.SelectedIndex + 1);
+            writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SelectedThread.UnixTime.ToString() + "/";
+            writewindow.cc = SetMannage.Cookie;
+            writewindow.Show();
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
@@ -103,10 +118,10 @@ namespace Uzuki.Dialogs.MainWindow
             if (SelectedThread == null) return;
             StatusLabel.Content = "スレッド更新中...";
             GetThreadAsync gt = new GetThreadAsync();
-            _2ch.BBSThread th = SelectedThread;
-            gt.URL = BoardURL + "/dat/" + th.DAT;
+            gt.setScrollPos = true;
+            gt.URL = SelectedThread.DATURL;
             gt.Window = this;
-            gt.ThreadName = th.Title;
+            gt.ThreadName = SelectedThread.Title;
             Thread thread = new Thread(gt.getListAsync);
             thread.Start();
         }
@@ -122,10 +137,15 @@ namespace Uzuki.Dialogs.MainWindow
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
-            Uri ur = new Uri(BoardURL);
+            Uri ur = new Uri(SelectedThread.BoardURL);
             writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SelectedThread.UnixTime.ToString() + "/";
             writewindow.cc = SetMannage.Cookie;
             writewindow.Show();
+        }
+
+        private void Label_MouseDown_5(object sender, MouseButtonEventArgs e)
+        {
+            SetMannage.ThreadHistoryList.Clear();
         }
     }
 }

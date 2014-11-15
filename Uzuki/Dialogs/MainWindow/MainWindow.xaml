@@ -49,6 +49,15 @@
                     <v:ThreadList x:Name="ThreadList" DockPanel.Dock="Bottom"/>
                 </DockPanel>
             </TabItem>
+            <TabItem Header="履歴"
+                     controls:ControlsHelper.HeaderFontSize="18">
+                <DockPanel>
+                    <StackPanel Margin="0" VerticalAlignment="Top" Background="#FF60B2E0" Orientation="Horizontal" DockPanel.Dock="Top">
+                        <Label Content="履歴を全て削除" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_5"/>
+                    </StackPanel>
+                    <v:ThreadList x:Name="BoardHistoryList" DockPanel.Dock="Bottom"/>
+                </DockPanel>
+            </TabItem>
         </TabControl>
         <GridSplitter VerticalAlignment="Stretch" Width="2"/>
         <Grid Grid.Column="1">

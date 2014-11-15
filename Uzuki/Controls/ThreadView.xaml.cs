@@ -45,6 +45,5 @@ namespace Uzuki.Controls
             RequestNavigateEventArgs earg = (RequestNavigateEventArgs) e;
             Process.Start(earg.Uri.AbsoluteUri);
         }
-
     }
 }

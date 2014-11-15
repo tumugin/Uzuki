@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Navigation;
@@ -30,6 +32,8 @@ namespace Uzuki.Dialogs.MainWindow
             StatusLabel.Content = "板リスト更新中...";
             Thread th = new Thread(getBoardAsync) { IsBackground = true };
             th.Start();
+
+            BoardHistoryList.ThreadListView.ItemsSource = SetMannage.ThreadHistoryList;
         }
 
         //終了時の処理
@@ -79,6 +83,11 @@ namespace Uzuki.Dialogs.MainWindow
                 System.Net.WebClient wc = new System.Net.WebClient();
                 String text = wc.DownloadString(URL);
                 Window.Threadlist = new ObservableCollection<_2ch.BBSThread>(_2ch.Parser.ThreadListParser.ParseThread(text));
+                foreach (_2ch.BBSThread th in Window.Threadlist)
+                {
+                    th.DATURL = Window.BoardURL + "/dat/" + th.DAT;
+                    th.BoardURL = Window.BoardURL;
+                }
                 Window.Dispatcher.Invoke(new Action(() =>
                 {
                     Window.ThreadList.ThreadListView.ItemsSource = Window.Threadlist;
@@ -92,12 +101,20 @@ namespace Uzuki.Dialogs.MainWindow
         //スレッド選択
         void ThreadListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ThreadList.ThreadListView.SelectedItem == null) return;
+            //if (ThreadList.ThreadListView.SelectedItem == null) return;
             StatusLabel.Content = "スレッド更新中...";
             GetThreadAsync gt = new GetThreadAsync();
-            _2ch.BBSThread th = (_2ch.BBSThread) ThreadList.ThreadListView.SelectedItem;
+            //親を取得
+            ListView lview = (ListView)sender;
+            _2ch.BBSThread th = (_2ch.BBSThread) lview.SelectedItem;
+            //ダブリが無いか確認してから履歴に追加
+            if ((from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm).Count() == 0 )
+            {
+                SetMannage.ThreadHistoryList.Add(th);
+            }
+            //クソッタレ
             SelectedThread = th;
-            gt.URL = BoardURL + "/dat/" + th.DAT;
+            gt.URL = th.DATURL;
             gt.Window = this;
             gt.ThreadName = th.Title;
             Thread thread = new Thread(gt.getListAsync);
@@ -110,6 +127,7 @@ namespace Uzuki.Dialogs.MainWindow
             public String URL;
             public MainWindow Window;
             public String ThreadName;
+            public bool setScrollPos = false;
             //リスト先駆でスレリストを更新
             public void getListAsync()
             {
@@ -119,8 +137,13 @@ namespace Uzuki.Dialogs.MainWindow
                 Window.Dispatcher.Invoke(new Action(() =>
                 {
                     Window.BackgroundLabel.Text = ThreadName;
+                    //スクロールバー
+                    var peer = ItemsControlAutomationPeer.CreatePeerForElement(Window.ThreadView.ThreadListView);
+                    var scrollProvider = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
+                    double sPos = scrollProvider.VerticalScrollPercent;
                     Window.ThreadView.ThreadListView.ItemsSource = Window.BBSThread;
-                    Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[0]);
+                    if(setScrollPos == false) Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[0]);
+                    if (setScrollPos) scrollProvider.SetScrollPercent(scrollProvider.HorizontalScrollPercent, sPos);
                     Window.StatusLabel.Content = "準備完了";
                 }));
             }
