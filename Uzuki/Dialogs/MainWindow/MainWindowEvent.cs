@@ -11,6 +11,7 @@ using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Navigation;
+using Uzuki.Controls;
 
 namespace Uzuki.Dialogs.MainWindow
 {
@@ -107,6 +108,7 @@ namespace Uzuki.Dialogs.MainWindow
             //親を取得
             ListView lview = (ListView)sender;
             _2ch.BBSThread th = (_2ch.BBSThread) lview.SelectedItem;
+            if (th == null) return; //バグ防止
             //ダブリが無いか確認してから履歴に追加
             if ((from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm).Count() == 0 )
             {
@@ -133,7 +135,7 @@ namespace Uzuki.Dialogs.MainWindow
             {
                 System.Net.WebClient wc = new System.Net.WebClient();
                 String text = wc.DownloadString(URL);
-                Window.BBSThread = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
+                ObservableCollection<_2ch.Objects.ThreadMesg> tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
                 Window.Dispatcher.Invoke(new Action(() =>
                 {
                     Window.BackgroundLabel.Text = ThreadName;
@@ -141,7 +143,10 @@ namespace Uzuki.Dialogs.MainWindow
                     var peer = ItemsControlAutomationPeer.CreatePeerForElement(Window.ThreadView.ThreadListView);
                     var scrollProvider = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
                     double sPos = scrollProvider.VerticalScrollPercent;
+                    if (sPos > 100) sPos = 100;
+                    Window.BBSThread = tlist;
                     Window.ThreadView.ThreadListView.ItemsSource = Window.BBSThread;
+                    WPFUtil.DoEvents(); //強制再描画
                     if(setScrollPos == false) Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[0]);
                     if (setScrollPos) scrollProvider.SetScrollPercent(scrollProvider.HorizontalScrollPercent, sPos);
                     Window.StatusLabel.Content = "準備完了";

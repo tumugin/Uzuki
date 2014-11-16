@@ -81,6 +81,7 @@
     <Compile Include="Controls\ThreadList.xaml.cs">
       <DependentUpon>ThreadList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WPFUtil.cs" />
     <Compile Include="Dialogs\MainWindow\IScrollProvider.cs" />
     <Compile Include="Dialogs\WriteWindow\WriteWindow.xaml.cs">
       <DependentUpon>WriteWindow.xaml</DependentUpon>

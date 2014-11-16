@@ -107,7 +107,15 @@ namespace Uzuki.Controls
                     link.Foreground = Brushes.Blue;
                     try
                     {
-                        link.NavigateUri = new Uri(tag);
+                        if (ReplyRegex.IsMatch(tag))
+                        {
+                            //解析できないリンク
+                            link.Click += link_Click;
+                        }
+                        else
+                        {
+                            link.NavigateUri = new Uri(tag);
+                        }
                     }
                     catch (Exception ex)
                     {

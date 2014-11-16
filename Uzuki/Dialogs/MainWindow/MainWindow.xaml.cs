@@ -147,5 +147,10 @@ namespace Uzuki.Dialogs.MainWindow
         {
             SetMannage.ThreadHistoryList.Clear();
         }
+
+        private void Label_MouseDown_6(object sender, MouseButtonEventArgs e)
+        {
+            if(BoardHistoryList.ThreadListView.SelectedIndex != -1) SetMannage.ThreadHistoryList.RemoveAt(BoardHistoryList.ThreadListView.SelectedIndex);
+        }
     }
 }
