@@ -47,17 +47,27 @@ namespace Uzuki.Dialogs.MainWindow
         // 非同期的に板リストを取得し更新する
         void getBoardAsync()
         {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            String html = wc.DownloadString(SetMannage.BBSMenuPath);
-            Boardlist = new ObservableCollection<_2ch.Board>(_2ch.Parser.BBSMenuParser.ParseBBSMenuHTML(html));
-            Dispatcher.Invoke(new Action(() =>
+            try
             {
-                BoardList.BoardListView.ItemsSource = Boardlist;
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(BoardList.BoardListView.ItemsSource);
-                PropertyGroupDescription groupDescription = new PropertyGroupDescription("GroupName");
-                view.GroupDescriptions.Add(groupDescription);
-                StatusLabel.Content = "準備完了";
-            }));
+                System.Net.WebClient wc = new System.Net.WebClient();
+                String html = wc.DownloadString(SetMannage.BBSMenuPath);
+                Boardlist = new ObservableCollection<_2ch.Board>(_2ch.Parser.BBSMenuParser.ParseBBSMenuHTML(html));
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    BoardList.BoardListView.ItemsSource = Boardlist;
+                    CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(BoardList.BoardListView.ItemsSource);
+                    PropertyGroupDescription groupDescription = new PropertyGroupDescription("GroupName");
+                    view.GroupDescriptions.Add(groupDescription);
+                    StatusLabel.Content = "準備完了";
+                }));
+            }
+            catch (Exception ex)
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    StatusLabel.Content = ex.Message;
+                }));
+            }
         }
 
         //板が選択された時の処理
@@ -81,21 +91,31 @@ namespace Uzuki.Dialogs.MainWindow
             //リスト先駆でスレリストを更新
             public void getListAsync()
             {
-                System.Net.WebClient wc = new System.Net.WebClient();
-                String text = wc.DownloadString(URL);
-                Window.Threadlist = new ObservableCollection<_2ch.BBSThread>(_2ch.Parser.ThreadListParser.ParseThread(text));
-                foreach (_2ch.BBSThread th in Window.Threadlist)
+                try
                 {
-                    th.DATURL = Window.BoardURL + "/dat/" + th.DAT;
-                    th.BoardURL = Window.BoardURL;
+                    System.Net.WebClient wc = new System.Net.WebClient();
+                    String text = wc.DownloadString(URL);
+                    Window.Threadlist = new ObservableCollection<_2ch.BBSThread>(_2ch.Parser.ThreadListParser.ParseThread(text));
+                    foreach (_2ch.BBSThread th in Window.Threadlist)
+                    {
+                        th.DATURL = Window.BoardURL + "/dat/" + th.DAT;
+                        th.BoardURL = Window.BoardURL;
+                    }
+                    Window.Dispatcher.Invoke(new Action(() =>
+                    {
+                        Window.ThreadList.ThreadListView.ItemsSource = Window.Threadlist;
+                        Window.ThreadList.ThreadListView.ScrollIntoView(Window.ThreadList.ThreadListView.Items[0]);
+                        Window.TabCtrl.SelectedIndex = 1;
+                        Window.StatusLabel.Content = "準備完了";
+                    }));
                 }
-                Window.Dispatcher.Invoke(new Action(() =>
+                catch (Exception ex)
                 {
-                    Window.ThreadList.ThreadListView.ItemsSource = Window.Threadlist;
-                    Window.ThreadList.ThreadListView.ScrollIntoView(Window.ThreadList.ThreadListView.Items[0]);
-                    Window.TabCtrl.SelectedIndex = 1;
-                    Window.StatusLabel.Content = "準備完了";
-                }));
+                    Window.Dispatcher.Invoke(new Action(() =>
+                    {
+                        Window.StatusLabel.Content = ex.Message;
+                    }));
+                }
             }
         }
 
@@ -133,24 +153,34 @@ namespace Uzuki.Dialogs.MainWindow
             //リスト先駆でスレリストを更新
             public void getListAsync()
             {
-                System.Net.WebClient wc = new System.Net.WebClient();
-                String text = wc.DownloadString(URL);
-                ObservableCollection<_2ch.Objects.ThreadMesg> tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
-                Window.Dispatcher.Invoke(new Action(() =>
+                try
                 {
-                    Window.BackgroundLabel.Text = ThreadName;
-                    //スクロールバー
-                    var peer = ItemsControlAutomationPeer.CreatePeerForElement(Window.ThreadView.ThreadListView);
-                    var scrollProvider = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
-                    double sPos = scrollProvider.VerticalScrollPercent;
-                    if (sPos > 100) sPos = 100;
-                    Window.BBSThread = tlist;
-                    Window.ThreadView.ThreadListView.ItemsSource = Window.BBSThread;
-                    WPFUtil.DoEvents(); //強制再描画
-                    if(setScrollPos == false) Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[0]);
-                    if (setScrollPos) scrollProvider.SetScrollPercent(scrollProvider.HorizontalScrollPercent, sPos);
-                    Window.StatusLabel.Content = "準備完了";
-                }));
+                    System.Net.WebClient wc = new System.Net.WebClient();
+                    String text = wc.DownloadString(URL);
+                    ObservableCollection<_2ch.Objects.ThreadMesg> tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
+                    Window.Dispatcher.Invoke(new Action(() =>
+                    {
+                        Window.BackgroundLabel.Text = ThreadName;
+                        //スクロールバー
+                        var peer = ItemsControlAutomationPeer.CreatePeerForElement(Window.ThreadView.ThreadListView);
+                        var scrollProvider = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
+                        double sPos = scrollProvider.VerticalScrollPercent;
+                        if (sPos > 100) sPos = 100;
+                        Window.BBSThread = tlist;
+                        Window.ThreadView.ThreadListView.ItemsSource = Window.BBSThread;
+                        WPFUtil.DoEvents(); //強制再描画
+                        if (setScrollPos == false) Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[0]);
+                        if (setScrollPos) scrollProvider.SetScrollPercent(scrollProvider.HorizontalScrollPercent, sPos);
+                        Window.StatusLabel.Content = "準備完了";
+                    }));
+                }
+                catch (Exception ex)
+                {
+                    Window.Dispatcher.Invoke(new Action(() =>
+                    {
+                        Window.StatusLabel.Content = ex.Message;
+                    }));
+                }
             }
         }
     }
