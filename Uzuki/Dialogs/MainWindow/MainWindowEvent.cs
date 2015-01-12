@@ -20,9 +20,9 @@ namespace Uzuki.Dialogs.MainWindow
         ObservableCollection<_2ch.Board> Boardlist = new ObservableCollection<_2ch.Board>();
         ObservableCollection<_2ch.BBSThread> Threadlist = new ObservableCollection<_2ch.BBSThread>();
         ObservableCollection<_2ch.Objects.ThreadMesg> BBSThread = new ObservableCollection<_2ch.Objects.ThreadMesg>();
-        String BoardURL;
-        _2ch.BBSThread SelectedThread;
-        Settings.SettingManager SetMannage;
+        public String BoardURL;
+        public _2ch.BBSThread SelectedThread;
+        public Settings.SettingManager SetMannage;
 
         //起動時の処理
         void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -128,6 +128,7 @@ namespace Uzuki.Dialogs.MainWindow
             //親を取得
             ListView lview = (ListView)sender;
             _2ch.BBSThread th = (_2ch.BBSThread) lview.SelectedItem;
+            BoardURL = th.DATURL;
             if (th == null) return; //バグ防止
             //ダブリが無いか確認してから履歴に追加
             if ((from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm).Count() == 0 )

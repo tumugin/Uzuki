@@ -32,17 +32,26 @@ namespace Uzuki.Controls
         {
             //レスクリック時
             //たぶんレスだろ?(しらん)
-            Hyperlink link = (Hyperlink)sender;
-            Run linkRun = (Run)link.Inlines.FirstInline;
-            String linkText = linkRun.Text;
-            int index = int.Parse(linkText.Replace(">>", ""));
-            ThreadListView.ScrollIntoView(ThreadListView.Items[index - 1]);
+            try
+            {
+                Hyperlink link = (Hyperlink)sender;
+                Run linkRun = (Run)link.Inlines.FirstInline;
+                String linkText = linkRun.Text;
+                int index = int.Parse(linkText.Replace(">>", ""));
+                Dialogs.SubDialogs.ResDialog resdiag = new Dialogs.SubDialogs.ResDialog();
+                resdiag.Resdata = (_2ch.Objects.ThreadMesg)ThreadListView.Items[index - 1];
+                resdiag.Resdata.Count = index;
+                resdiag.DataContext = resdiag.Resdata;
+                resdiag.Show();
+                //ThreadListView.ScrollIntoView(ThreadListView.Items[index - 1]);
+            }
+            catch (Exception ignore) { }
         }
 
         //リンククリック時の動作
         void HyperlinkText_OnLinkClick(object sender, EventArgs e)
         {
-            RequestNavigateEventArgs earg = (RequestNavigateEventArgs) e;
+            RequestNavigateEventArgs earg = (RequestNavigateEventArgs)e;
             Process.Start(earg.Uri.AbsoluteUri);
         }
     }

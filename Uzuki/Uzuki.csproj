@@ -46,6 +46,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.0.13.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -83,6 +84,10 @@
     </Compile>
     <Compile Include="Controls\WPFUtil.cs" />
     <Compile Include="Dialogs\MainWindow\IScrollProvider.cs" />
+    <Compile Include="Dialogs\MainWindow\SingletonManager.cs" />
+    <Compile Include="Dialogs\SubDialogs\ResDialog.xaml.cs">
+      <DependentUpon>ResDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\WriteWindow\WriteWindow.xaml.cs">
       <DependentUpon>WriteWindow.xaml</DependentUpon>
     </Compile>
@@ -119,6 +124,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Dialogs\SubDialogs\ResDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\WriteWindow\WriteWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -17,7 +17,7 @@
             <DockPanel>
                 <StackPanel DockPanel.Dock="Top">
                     <TextBox x:Name="NameTextBox" TextWrapping="Wrap" controls:TextboxHelper.Watermark="Name"/>
-                    <TextBox x:Name="MailTextBox" TextWrapping="Wrap" controls:TextboxHelper.Watermark="Mail"/>
+                    <TextBox x:Name="MailTextBox" TextWrapping="Wrap" controls:TextboxHelper.Watermark="Mail" Text="sage"/>
                 </StackPanel>
                 <TextBox x:Name="MessageTextBox" TextWrapping="Wrap" controls:TextboxHelper.Watermark="Message" AcceptsReturn="True"/>
             </DockPanel>

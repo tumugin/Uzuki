@@ -32,6 +32,7 @@ namespace Uzuki.Dialogs.MainWindow
             BoardList.BoardListView.SelectionChanged += BoardListView_SelectionChanged;
             ThreadList.ThreadListView.SelectionChanged += ThreadListView_SelectionChanged;
             BoardHistoryList.ThreadListView.SelectionChanged += ThreadListView_SelectionChanged;
+            SingletonManager.MainWindowSingleton = this;
             //キレそう
             MenuItem menuItem = (from MenuItem item in ((ContextMenu)ThreadView.ThreadListView.Resources["ItemContextMenu"]).Items where item.Name == "ReplyMenuItem" select item).First();
             menuItem.Click += ReplyMenuItem_Click;

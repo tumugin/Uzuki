@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Uzuki._2ch.Objects
 {
-    class ThreadMesg
+    public class ThreadMesg
     {
+        public int Count { get; set; }
         public String Name { get; set; }
         public String ID { get; set; }
         public String Adress { get; set; }

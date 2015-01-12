@@ -14,7 +14,7 @@
           VirtualizingPanel.IsVirtualizing="True"
           VirtualizingPanel.ScrollUnit="Pixel"
           Background="Transparent" BorderThickness="0">
-        
+
         <ListView.Resources>
             <converters:ListBoxIndexConverter x:Key="listBoxIndexConverter" />
             <ContextMenu x:Key="ItemContextMenu">
