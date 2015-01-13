@@ -61,8 +61,13 @@ namespace Uzuki.Dialogs.SubDialogs
                     }));
                     st.Dispose();
                 }
-                catch { }
-
+                catch(Exception ex) {
+                    Window.Dispatcher.Invoke(new Action(() =>
+                    {
+                        MessageBox.Show(ex.Message);
+                        Window.Close();
+                    }));
+                }
             }
         }
     }
