@@ -128,8 +128,8 @@ namespace Uzuki.Dialogs.MainWindow
             //親を取得
             ListView lview = (ListView)sender;
             _2ch.BBSThread th = (_2ch.BBSThread) lview.SelectedItem;
-            BoardURL = th.DATURL;
             if (th == null) return; //バグ防止
+            BoardURL = th.DATURL;
             //ダブリが無いか確認してから履歴に追加
             if ((from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm).Count() == 0 )
             {
