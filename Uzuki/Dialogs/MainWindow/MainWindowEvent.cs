@@ -140,6 +140,7 @@ namespace Uzuki.Dialogs.MainWindow
             gt.URL = th.DATURL;
             gt.Window = this;
             gt.ThreadName = th.Title;
+            gt.BThread = th;
             Thread thread = new Thread(gt.getListAsync);
             thread.Start();
         }
@@ -150,6 +151,7 @@ namespace Uzuki.Dialogs.MainWindow
             public String URL;
             public MainWindow Window;
             public String ThreadName;
+            public _2ch.BBSThread BThread;
             public bool setScrollPos = false;
             //リスト先駆でスレリストを更新
             public void getListAsync()
@@ -170,7 +172,7 @@ namespace Uzuki.Dialogs.MainWindow
                         Window.BBSThread = tlist;
                         Window.ThreadView.ThreadListView.ItemsSource = Window.BBSThread;
                         WPFUtil.DoEvents(); //強制再描画
-                        if (setScrollPos == false) Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[0]);
+                        try { if (setScrollPos == false) Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[BThread.ScroolPosItem]); } catch { }
                         if (setScrollPos) scrollProvider.SetScrollPercent(scrollProvider.HorizontalScrollPercent, sPos);
                         Window.StatusLabel.Content = "準備完了";
                     }));

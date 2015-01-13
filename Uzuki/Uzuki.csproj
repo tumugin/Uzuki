@@ -85,6 +85,9 @@
     <Compile Include="Controls\WPFUtil.cs" />
     <Compile Include="Dialogs\MainWindow\IScrollProvider.cs" />
     <Compile Include="Dialogs\MainWindow\SingletonManager.cs" />
+    <Compile Include="Dialogs\SubDialogs\ImagePreviewDialog.xaml.cs">
+      <DependentUpon>ImagePreviewDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SubDialogs\ResDialog.xaml.cs">
       <DependentUpon>ResDialog.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Dialogs\SubDialogs\ImagePreviewDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\SubDialogs\ResDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

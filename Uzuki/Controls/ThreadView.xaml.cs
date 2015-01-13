@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Uzuki.Dialogs.SubDialogs;
 
 namespace Uzuki.Controls
 {
@@ -52,7 +54,15 @@ namespace Uzuki.Controls
         void HyperlinkText_OnLinkClick(object sender, EventArgs e)
         {
             RequestNavigateEventArgs earg = (RequestNavigateEventArgs)e;
-            Process.Start(earg.Uri.AbsoluteUri);
+            //imgur
+            if (Regex.IsMatch(earg.Uri.AbsoluteUri,"^.*.(?!jpg|gif|bmp|png|jpeg).*$"))
+            {
+                ImagePreviewDialog diag = new ImagePreviewDialog();
+                diag.ImageGet(earg.Uri.AbsoluteUri);
+                diag.Show();
+            }else{
+                Process.Start(earg.Uri.AbsoluteUri);
+            }
         }
     }
 }
