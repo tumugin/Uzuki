@@ -59,7 +59,7 @@ namespace Uzuki.Controls
             nl.Sort();
 
             // 正規表現でURLアドレスを検出
-            var regex = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[A-Z0-9-.,_/?%&=]*)?|>>(\d+)",
+            var regex = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[A-Z0-9-.,_/?%~&=]*)?|>>(\d+)",
                 RegexOptions.IgnoreCase | RegexOptions.Singleline);
             var ReplyRegex = new Regex(@">>(\d+)");
             var text = msg.Replace("\r\n", "");
