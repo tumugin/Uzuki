@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -25,6 +26,8 @@ namespace Uzuki.Dialogs.SubDialogs
     /// </summary>
     public partial class ImagePreviewDialog : MetroWindow
     {
+        String browserurl;
+
         public ImagePreviewDialog()
         {
             InitializeComponent();
@@ -37,6 +40,7 @@ namespace Uzuki.Dialogs.SubDialogs
             it.Window = this;
             Thread th = new Thread(it.getImage);
             th.Start();
+            browserurl = it.URL;
         }
 
         class ImagegetThread
@@ -49,7 +53,43 @@ namespace Uzuki.Dialogs.SubDialogs
                 try
                 {
                     WebClient wc = new WebClient();
-                    Stream stream = wc.OpenRead(URL);
+                    wc.OpenReadCompleted += wc_OpenReadCompleted;
+                    wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                    wc.OpenReadAsync(new Uri(URL));
+                }
+                catch(Exception ex) {
+                    Window.Dispatcher.Invoke(new Action(() =>
+                    {
+                        MessageBox.Show(ex.Message);
+                        Window.Close();
+                    }));
+                }
+            }
+
+            void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+            {
+                //イベントが飛んでこない訴訟
+                Window.Dispatcher.Invoke(new Action(() =>
+                {
+                    Window.progBar.Value = e.ProgressPercentage;
+                    Debug.WriteLine(e.ProgressPercentage);
+                }));
+            }
+
+            void wc_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
+            {
+                if (e.Error != null)
+                {
+                    Window.Dispatcher.Invoke(new Action(() =>
+                    {
+                        MessageBox.Show(e.Error.Message);
+                        Window.Close();
+                    }));
+                    return;
+                }
+                try
+                {
+                    Stream stream = e.Result;
                     Bitmap bitmap = new Bitmap(stream);
                     stream.Close();
                     Stream st = new MemoryStream();
@@ -57,6 +97,7 @@ namespace Uzuki.Dialogs.SubDialogs
                     st.Seek(0, SeekOrigin.Begin);
                     Window.Dispatcher.Invoke(new Action(() =>
                     {
+                        Window.progBar.Visibility = Visibility.Collapsed;
                         image.Source = BitmapFrame.Create(st, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
                     }));
                     st.Dispose();
@@ -69,6 +110,11 @@ namespace Uzuki.Dialogs.SubDialogs
                     }));
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(browserurl);
         }
     }
 }

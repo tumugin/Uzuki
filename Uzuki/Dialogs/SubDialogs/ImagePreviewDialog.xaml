@@ -9,7 +9,13 @@
         EnableDWMDropShadow="True"
         ResizeMode="CanResizeWithGrip"
         Title="ImagePreviewDialog" Height="500" Width="500">
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button Content="OPEN IN BROWSER" Click="Button_Click" />
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
     <Grid>
         <Image x:Name="imageView" />
+        <controls:MetroProgressBar x:Name="progBar" IsIndeterminate="True"/>
     </Grid>
 </controls:MetroWindow>

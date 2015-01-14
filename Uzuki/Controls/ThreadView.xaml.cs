@@ -55,7 +55,7 @@ namespace Uzuki.Controls
         {
             RequestNavigateEventArgs earg = (RequestNavigateEventArgs)e;
             //imgur
-            if (Regex.IsMatch(earg.Uri.AbsoluteUri,"^.*.(?!jpg|gif|bmp|png|jpeg).*$"))
+            if (Regex.IsMatch(earg.Uri.AbsoluteUri,"^.*.(jpg|gif|bmp|png|jpeg).*$"))
             {
                 ImagePreviewDialog diag = new ImagePreviewDialog();
                 diag.ImageGet(earg.Uri.AbsoluteUri);
