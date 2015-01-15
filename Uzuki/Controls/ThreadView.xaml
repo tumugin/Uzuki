@@ -19,6 +19,7 @@
             <converters:ListBoxIndexConverter x:Key="listBoxIndexConverter" />
             <ContextMenu x:Key="ItemContextMenu">
                 <MenuItem x:Name="ReplyMenuItem" Header="返信"/>
+                <MenuItem x:Name="CopyMenuItem" Header="コピー"/>
             </ContextMenu>
         </ListView.Resources>
 

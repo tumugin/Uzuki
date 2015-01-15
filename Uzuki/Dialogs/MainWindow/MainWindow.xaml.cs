@@ -36,7 +36,14 @@ namespace Uzuki.Dialogs.MainWindow
             SingletonManager.MainWindowSingleton = this;
             //キレそう
             MenuItem menuItem = (from MenuItem item in ((ContextMenu)ThreadView.ThreadListView.Resources["ItemContextMenu"]).Items where item.Name == "ReplyMenuItem" select item).First();
+            MenuItem menuItem2 = (from MenuItem item in ((ContextMenu)ThreadView.ThreadListView.Resources["ItemContextMenu"]).Items where item.Name == "CopyMenuItem" select item).First();
             menuItem.Click += ReplyMenuItem_Click;
+            menuItem2.Click += menuItem2_Click;
+        }
+
+        void menuItem2_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(BBSThread[ThreadView.ThreadListView.SelectedIndex].Message);
         }
 
         private void ThreadViewListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
