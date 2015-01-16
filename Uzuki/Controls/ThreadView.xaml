@@ -38,10 +38,10 @@
                 <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="{x:Null}" />
+                        <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
                     </Trigger>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{x:Null}" />
+                        
                     </Trigger>
                     <DataTrigger Binding="{Binding isReply}" Value="True">
                         <Setter Property="Background" Value="WhiteSmoke" />
