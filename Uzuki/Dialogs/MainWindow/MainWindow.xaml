@@ -14,7 +14,7 @@
             <Button Content="🔻" Click="Button_Click_1" />
             <Button Content="書き込み" Click="Button_Click_3" />
             <Button Content="更新" Click="Button_Click_2" />
-            <Button Content="設定" />
+            <Button Content="設定" Click="Button_Click_4" />
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid x:Name="Grid">

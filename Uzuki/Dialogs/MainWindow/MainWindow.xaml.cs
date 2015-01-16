@@ -168,5 +168,10 @@ namespace Uzuki.Dialogs.MainWindow
         {
             if(BoardHistoryList.ThreadListView.SelectedIndex != -1) SetMannage.ThreadHistoryList.RemoveAt(BoardHistoryList.ThreadListView.SelectedIndex);
         }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("未実装めう","めめめめめめめ めうめうーっ！(」*ﾟﾛﾟ)」めめめ めうめうーっ！(」*ﾟﾛﾟ)」*ﾟﾛﾟ)」ぺーったんぺったんぺったんぺったん 大好き～っ☆⌒ヽ(*'､＾*)");
+        }
     }
 }
