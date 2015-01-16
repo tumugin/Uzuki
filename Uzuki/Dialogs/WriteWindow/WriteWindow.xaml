@@ -9,6 +9,7 @@
         Title="WRITE" Height="384" Width="652">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
+            <Button Content="画像添付" Click="Button_Click_1" />
             <Button Content="書き込む" Click="Button_Click" />
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>

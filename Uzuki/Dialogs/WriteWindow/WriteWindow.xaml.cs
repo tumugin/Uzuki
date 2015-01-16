@@ -82,5 +82,36 @@ namespace Uzuki.Dialogs.WriteWindow
                 }));
             }
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".png";
+            // Display OpenFileDialog by calling ShowDialog method 
+            if (dlg.ShowDialog() == true)
+            {
+                StatusLabel.Content = "Uploading image...";
+                new Thread(delegate()
+                {
+                    try
+                    {
+                        String url = ImageAPI.imgur.imgur.UploadImage(dlg.FileName);
+                        Dispatcher.Invoke(new Action(() => {
+                            MessageTextBox.Text += "\r\n" + url;
+                            StatusLabel.Content = "画像を投稿しました";
+                        }));
+                    }
+                    catch(Exception ex)
+                    {
+                        Dispatcher.Invoke(new Action(() =>
+                        {
+                            StatusLabel.Content = ex.Message;
+                        }));
+                    }
+                }).Start();
+            }
+        }
     }
 }
