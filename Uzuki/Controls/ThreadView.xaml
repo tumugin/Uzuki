@@ -38,13 +38,13 @@
                 <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource replyBrush}" />
                     </Trigger>
                     <Trigger Property="IsMouseOver" Value="True">
                         
                     </Trigger>
                     <DataTrigger Binding="{Binding isReply}" Value="True">
-                        <Setter Property="Background" Value="WhiteSmoke" />
+                        <Setter Property="Background" Value="{DynamicResource replyBrush}" />
                         <Setter Property="Opacity" Value="0.8" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -67,7 +67,7 @@
                         </Style>
                     </Border.Style>
                     <StackPanel Margin="5">
-                        <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="13" Foreground="#FF515151">
+                        <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="13" Foreground="{DynamicResource IDTextBrush}">
                             <TextBlock.Text>
                                 <MultiBinding Converter="{StaticResource listBoxIndexConverter}">
                                     <Binding />

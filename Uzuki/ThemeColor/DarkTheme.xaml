@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="replyBrush" Color="#4f4f4f" />
+    <SolidColorBrush x:Key="IDTextBrush" Color="#7b7b7b" />
+    <SolidColorBrush x:Key="UzukiBGTextBrush" Color="#777" />
+    <SolidColorBrush x:Key="linkTextBrush" Color="#caeafe" />
+</ResourceDictionary>

@@ -104,7 +104,7 @@ namespace Uzuki.Controls
                     var link = new Hyperlink();
                     link.TextDecorations = null;
                     //link.Foreground = tb.Foreground;
-                    link.Foreground = Brushes.Blue;
+                    link.Foreground = (Brush)Application.Current.Resources["linkTextBrush"];
                     try
                     {
                         if (ReplyRegex.IsMatch(tag))
