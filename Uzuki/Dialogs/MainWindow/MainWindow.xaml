@@ -7,7 +7,7 @@
     BorderThickness="1"
     EnableDWMDropShadow="True"
     ResizeMode="CanResizeWithGrip"
-    Title="Uzuki::Honoka" Height="545" Width="906">
+    Title="Uzuki::FriedChicken" Height="545" Width="906">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Content="🔺" Click="Button_Click" />
@@ -62,7 +62,7 @@
         </TabControl>
         <GridSplitter VerticalAlignment="Stretch" Width="2"/>
         <Grid Grid.Column="1">
-            <TextBlock x:Name="BackgroundLabel" Text="UZUKI::HONOKA" Margin="0" Background="{x:Null}" Foreground="{DynamicResource UzukiBGTextBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" FontWeight="Bold" TextWrapping="Wrap"/>
+            <TextBlock x:Name="BackgroundLabel" Text="UZUKI::FriedChicken" Margin="0" Background="{x:Null}" Foreground="{DynamicResource UzukiBGTextBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" FontWeight="Bold" TextWrapping="Wrap"/>
             <v:ThreadView x:Name="ThreadView" />
         </Grid>
         <StackPanel Grid.Column="0" Grid.Row="1" Background="{DynamicResource AccentColorBrush}">
