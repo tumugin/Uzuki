@@ -20,10 +20,16 @@ namespace Uzuki.Settings
         //CookieContainerはXMLシリアライズ出来ない(許さない)
         [System.Xml.Serialization.XmlIgnore]
         public CookieContainer Cookie = new CookieContainer();
-        public String BBSMenuPath = "http://menu.2ch.net/bbsmenu.html";
+        public String BBSMenuPath { get; set; }
+        public bool UseBlackTheme { get; set; }
         //履歴
         public ObservableCollection<_2ch.BBSThread> ThreadHistoryList = new ObservableCollection<_2ch.BBSThread>();
 
+        public SettingManager(){
+            //C#6.0に対応していない為、今はコンストラクタで設定する
+            BBSMenuPath = "http://menu.2ch.net/bbsmenu.html";
+            UseBlackTheme = true;
+        }
         public void SaveSettings()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(SettingManager));

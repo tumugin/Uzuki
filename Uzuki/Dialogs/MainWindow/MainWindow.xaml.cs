@@ -176,7 +176,8 @@ namespace Uzuki.Dialogs.MainWindow
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("未実装めう","めめめめめめめ めうめうーっ！(」*ﾟﾛﾟ)」めめめ めうめうーっ！(」*ﾟﾛﾟ)」*ﾟﾛﾟ)」ぺーったんぺったんぺったんぺったん 大好き～っ☆⌒ヽ(*'､＾*)");
+            Dialogs.SettingDialog dialog = new SettingDialog();
+            dialog.Show();
         }
 
         private void Label_MouseDown_7(object sender, MouseButtonEventArgs e)

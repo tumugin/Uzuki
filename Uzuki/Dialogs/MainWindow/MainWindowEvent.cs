@@ -30,8 +30,10 @@ namespace Uzuki.Dialogs.MainWindow
             //Load setting
             SetMannage = Settings.SettingManager.LoadSettings();
             //TESTING THEME
-            ThemeColor.MkThemeSelector.AddGlobalThemeDictonary(new Uri("/MahApps.Metro;component/Styles/Accents/BaseDark.xaml", UriKind.Relative));
-            ThemeColor.MkThemeSelector.AddGlobalThemeDictonary(new Uri("/Uzuki;component/ThemeColor/DarkTheme.xaml", UriKind.Relative));
+            if (SetMannage.UseBlackTheme) {
+                ThemeColor.MkThemeSelector.AddGlobalThemeDictonary(new Uri("/MahApps.Metro;component/Styles/Accents/BaseDark.xaml", UriKind.Relative));
+                ThemeColor.MkThemeSelector.AddGlobalThemeDictonary(new Uri("/Uzuki;component/ThemeColor/DarkTheme.xaml", UriKind.Relative));
+            }
             //Initialize
             StatusLabel.Content = "板リスト更新中...";
             Thread th = new Thread(getBoardAsync) { IsBackground = true };
