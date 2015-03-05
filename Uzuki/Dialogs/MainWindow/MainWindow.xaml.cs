@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -152,6 +153,10 @@ namespace Uzuki.Dialogs.MainWindow
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            if (SelectedThread == null)
+            {
+                return;
+            }
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
             Uri ur = new Uri(SelectedThread.BoardURL);
             writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SelectedThread.UnixTime.ToString() + "/";
@@ -172,6 +177,16 @@ namespace Uzuki.Dialogs.MainWindow
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("未実装めう","めめめめめめめ めうめうーっ！(」*ﾟﾛﾟ)」めめめ めうめうーっ！(」*ﾟﾛﾟ)」*ﾟﾛﾟ)」ぺーったんぺったんぺったんぺったん 大好き～っ☆⌒ヽ(*'､＾*)");
+        }
+
+        private void Label_MouseDown_7(object sender, MouseButtonEventArgs e)
+        {
+            if (BoardURL == null) return;
+            WriteWindow.NewThreadWindow window = new WriteWindow.NewThreadWindow();
+            Uri ur = new Uri(BoardURL);
+            window.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/";
+            window.cc = SetMannage.Cookie;
+            window.Show();
         }
     }
 }

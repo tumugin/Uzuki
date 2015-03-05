@@ -95,6 +95,9 @@
     <Compile Include="Dialogs\SubDialogs\ResDialog.xaml.cs">
       <DependentUpon>ResDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\WriteWindow\NewThreadWindow.xaml.cs">
+      <DependentUpon>NewThreadWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\WriteWindow\WriteWindow.xaml.cs">
       <DependentUpon>WriteWindow.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
     <Page Include="Dialogs\SubDialogs\ResDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\WriteWindow\NewThreadWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\WriteWindow\WriteWindow.xaml">
       <SubType>Designer</SubType>
