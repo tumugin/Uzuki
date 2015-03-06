@@ -27,6 +27,8 @@ namespace Uzuki.Dialogs.MainWindow
     {
         public MainWindow()
         {
+            //INIT
+            BugReporter.ErrorReporter.RegisterErrorReporter();
             InitializeComponent();
             ContentRendered += MainWindow_ContentRendered;
             Closing += MainWindow_Closing;

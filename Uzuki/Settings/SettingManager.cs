@@ -27,7 +27,7 @@ namespace Uzuki.Settings
 
         public SettingManager(){
             //C#6.0に対応していない為、今はコンストラクタで設定する
-            BBSMenuPath = "http://menu.2ch.net/bbsmenu.html";
+            BBSMenuPath = "http://2ch.sc/bbsmenu.html";
             UseBlackTheme = true;
         }
         public void SaveSettings()

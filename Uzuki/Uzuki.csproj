@@ -81,6 +81,7 @@
     <Compile Include="2ch\Parser\ThreadParser.cs" />
     <Compile Include="2ch\Tools\UnixTime.cs" />
     <Compile Include="2ch\Write\WriteObject.cs" />
+    <Compile Include="BugReporter\ErrorReporter.cs" />
     <Compile Include="Controls\HyperlinkText.cs" />
     <Compile Include="Controls\ListBoxIndexConverter.cs" />
     <Compile Include="Controls\ThreadList.xaml.cs">
