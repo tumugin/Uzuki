@@ -40,6 +40,9 @@ namespace Uzuki.Dialogs.MainWindow
             th.Start();
 
             BoardHistoryList.ThreadListView.ItemsSource = SetMannage.ThreadHistoryList;
+
+            //アプデチェック
+            UpdateChecker.UpdateNotify.checkUpdate();
         }
 
         //終了時の処理
