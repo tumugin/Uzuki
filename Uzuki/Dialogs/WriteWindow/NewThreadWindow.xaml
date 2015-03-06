@@ -17,11 +17,11 @@
         <Grid Margin="0,0,0,25">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Top">
-                    <TextBox x:Name="SubjectTextBox" TextWrapping="Wrap" controls:TextboxHelper.Watermark="Subject"/>
-                    <TextBox x:Name="NameTextBox" TextWrapping="Wrap" controls:TextboxHelper.Watermark="Name"/>
-                    <TextBox x:Name="MailTextBox" TextWrapping="Wrap" controls:TextboxHelper.Watermark="Mail" Text="sage"/>
+                    <TextBox x:Name="SubjectTextBox" TextWrapping="Wrap" controls:TextBoxHelper.Watermark="Subject"/>
+                    <TextBox x:Name="NameTextBox" TextWrapping="Wrap" controls:TextBoxHelper.Watermark="Name"/>
+                    <TextBox x:Name="MailTextBox" TextWrapping="Wrap" controls:TextBoxHelper.Watermark="Mail" Text="sage"/>
                 </StackPanel>
-                <TextBox x:Name="MessageTextBox" TextWrapping="Wrap" controls:TextboxHelper.Watermark="Message" AcceptsReturn="True"/>
+                <TextBox x:Name="MessageTextBox" TextWrapping="Wrap" controls:TextBoxHelper.Watermark="Message" AcceptsReturn="True"/>
             </DockPanel>
         </Grid>
         <Grid Height="25" VerticalAlignment="Bottom" Background="{DynamicResource AccentColorBrush}">
