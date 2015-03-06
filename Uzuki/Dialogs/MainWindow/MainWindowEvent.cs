@@ -141,7 +141,7 @@ namespace Uzuki.Dialogs.MainWindow
             //ダブリが無いか確認してから履歴に追加
             if ((from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm).Count() == 0 )
             {
-                SetMannage.ThreadHistoryList.Add(th);
+                SetMannage.ThreadHistoryList.Insert(0,th);
             }
             //クソッタレ
             SelectedThread = th;

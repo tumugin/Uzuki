@@ -54,14 +54,20 @@ namespace Uzuki.Controls
         void HyperlinkText_OnLinkClick(object sender, EventArgs e)
         {
             RequestNavigateEventArgs earg = (RequestNavigateEventArgs)e;
+            String URL = earg.Uri.AbsoluteUri;
+            //ttpのとき
+            if (earg.Uri.Scheme == "ttp")
+            {
+                URL = "h" + URL;
+            }
             //imgur
-            if (Regex.IsMatch(earg.Uri.AbsoluteUri,"^.*.(jpg|gif|bmp|png|jpeg).*$"))
+            if (Regex.IsMatch(URL,"^.*.(jpg|gif|bmp|png|jpeg).*$"))
             {
                 ImagePreviewDialog diag = new ImagePreviewDialog();
-                diag.ImageGet(earg.Uri.AbsoluteUri);
+                diag.ImageGet(URL);
                 diag.Show();
             }else{
-                Process.Start(earg.Uri.AbsoluteUri);
+                Process.Start(URL);
             }
         }
     }

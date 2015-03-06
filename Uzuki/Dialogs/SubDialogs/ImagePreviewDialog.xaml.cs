@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Uzuki.Dialogs.SubDialogs
 {
@@ -31,6 +32,7 @@ namespace Uzuki.Dialogs.SubDialogs
         public ImagePreviewDialog()
         {
             InitializeComponent();
+            this.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Inverted;
         }
         public void ImageGet(String url)
         {
@@ -60,8 +62,8 @@ namespace Uzuki.Dialogs.SubDialogs
                 catch(Exception ex) {
                     Window.Dispatcher.Invoke(new Action(() =>
                     {
-                        MessageBox.Show(ex.Message);
-                        Window.Close();
+                        ((MetroWindow)Window).ShowMessageAsync("エラー", ex.Message);
+                        //Window.Close();
                     }));
                 }
             }
@@ -82,8 +84,8 @@ namespace Uzuki.Dialogs.SubDialogs
                 {
                     Window.Dispatcher.Invoke(new Action(() =>
                     {
-                        MessageBox.Show(e.Error.Message);
-                        Window.Close();
+                        ((MetroWindow)Window).ShowMessageAsync("エラー",e.Error.Message);
+                        //Window.Close();
                     }));
                     return;
                 }
@@ -105,8 +107,8 @@ namespace Uzuki.Dialogs.SubDialogs
                 catch(Exception ex) {
                     Window.Dispatcher.Invoke(new Action(() =>
                     {
-                        MessageBox.Show(ex.Message);
-                        Window.Close();
+                        ((MetroWindow)Window).ShowMessageAsync("エラー",ex.Message);
+                        //Window.Close();
                     }));
                 }
             }
