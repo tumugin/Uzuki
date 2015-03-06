@@ -112,6 +112,7 @@
     <Compile Include="ImageAPI\imgur\imgur.cs" />
     <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="ThemeColor\ThemeSelector.cs" />
+    <Compile Include="UpdateChecker\UpdateNotify.cs" />
     <Page Include="Controls\BoardList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,6 +201,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="UpdateChecker\Updateinfo.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
