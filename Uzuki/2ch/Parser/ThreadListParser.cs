@@ -18,9 +18,9 @@ namespace Uzuki._2ch.Parser
             {
                 if (line == "") break;
                 BBSThread thread = new BBSThread();
-                String[] LineSplit = line.Split(new string[] { "<>" }, StringSplitOptions.None);
+                String[] LineSplit = line.Split(new string[] { "<>"}, StringSplitOptions.None);
                 thread.DAT = LineSplit[0];
-                thread.UnixTime = long.Parse(LineSplit[0].Replace(".dat", ""));
+                thread.UnixTime = long.Parse(Regex.Replace(LineSplit[0],@"(\.dat|\.cgi)",""));
                 thread.createdAt = _2ch.Tools.UnixTime.FromUnixTime(thread.UnixTime);
                 MatchCollection mc = Regex.Matches(LineSplit[1],@"(.*.)\((\d+)\)");
                 thread.ResCount = int.Parse(mc[0].Groups[2].Value);
