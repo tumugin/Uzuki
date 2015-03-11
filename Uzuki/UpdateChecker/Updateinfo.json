@@ -1,5 +1,5 @@
 ﻿{
-"Version":"1.0.0.0",
-"UpdateLog":"初版リリース",
+"Version":"1.0.1.0",
+"UpdateLog":"一部の2ch.scのスレが正しく読み込めていなかったバグを修正しました",
 "URL":"https://github.com/kazukioishi/Uzuki/tree/master/Uzuki"
 }
