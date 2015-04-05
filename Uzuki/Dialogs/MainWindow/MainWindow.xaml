@@ -7,7 +7,8 @@
     BorderThickness="1"
     EnableDWMDropShadow="True"
     ResizeMode="CanResizeWithGrip"
-    Title="Uzuki::FriedChicken" Height="545" Width="906">
+    ShowIconOnTitleBar="True"
+    Title="Uzuki::FriedChicken" Height="545" Width="906" Icon="/Uzuki;component/UzukiIcon.ico">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Content="🔺" Click="Button_Click" />
