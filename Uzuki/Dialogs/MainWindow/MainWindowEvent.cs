@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using Uzuki.Controls;
+using Uzuki.Network;
 
 namespace Uzuki.Dialogs.MainWindow
 {
@@ -57,8 +60,7 @@ namespace Uzuki.Dialogs.MainWindow
         {
             try
             {
-                System.Net.WebClient wc = new System.Net.WebClient();
-                String html = wc.DownloadString(SetMannage.BBSMenuPath);
+                String html = Ayane.getHttp(SetMannage.BBSMenuPath);
                 Boardlist = new ObservableCollection<_2ch.Board>(_2ch.Parser.BBSMenuParser.ParseBBSMenuHTML(html));
                 Dispatcher.Invoke(new Action(() =>
                 {
@@ -101,8 +103,7 @@ namespace Uzuki.Dialogs.MainWindow
             {
                 try
                 {
-                    System.Net.WebClient wc = new System.Net.WebClient();
-                    String text = wc.DownloadString(URL);
+                    String text = Ayane.getHttp(URL);
                     Window.Threadlist = new ObservableCollection<_2ch.BBSThread>(_2ch.Parser.ThreadListParser.ParseThread(text));
                     foreach (_2ch.BBSThread th in Window.Threadlist)
                     {
@@ -165,8 +166,7 @@ namespace Uzuki.Dialogs.MainWindow
             {
                 try
                 {
-                    System.Net.WebClient wc = new System.Net.WebClient();
-                    String text = wc.DownloadString(URL);
+                    String text = Ayane.getHttp(URL);
                     ObservableCollection<_2ch.Objects.ThreadMesg> tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
                     Window.Dispatcher.Invoke(new Action(() =>
                     {

@@ -24,8 +24,8 @@ namespace Uzuki._2ch.Parser
                     mesg.Name = lineSplit[0];
                     mesg.Adress = lineSplit[1];
                     mesg.ID = lineSplit[2];
-                    MatchCollection mc = Regex.Matches(mesg.ID, "(.*.) (.*.) ID:(.*.)");
-                    if(mc.Count != 0) mesg.AuthorID = mc[0].Groups[3].Value;
+                    MatchCollection mc = Regex.Matches(mesg.ID, "ID:(.*.)");
+                    if(mc.Count != 0) mesg.AuthorID = mc[0].Groups[0].Value;
                     //HTMLタグとかを取り除く
                     mesg.Message = System.Web.HttpUtility.HtmlDecode(lineSplit[3]);
                     mesg.Message = mesg.Message.Replace("<br>", Environment.NewLine);

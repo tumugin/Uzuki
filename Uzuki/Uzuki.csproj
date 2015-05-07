@@ -113,6 +113,8 @@
       <DependentUpon>WriteWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImageAPI\imgur\imgur.cs" />
+    <Compile Include="Network\Ayaka.cs" />
+    <Compile Include="Network\Ayane.cs" />
     <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="ThemeColor\ThemeSelector.cs" />
     <Compile Include="UpdateChecker\UpdateNotify.cs" />
@@ -221,6 +223,7 @@
   <ItemGroup>
     <Resource Include="UzukiLine.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
