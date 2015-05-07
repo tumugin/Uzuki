@@ -166,7 +166,7 @@ namespace Uzuki.Dialogs.MainWindow
             {
                 try
                 {
-                    String text = Ayane.getHttp(URL);
+                    String text = Ayane.getDAT(URL);
                     ObservableCollection<_2ch.Objects.ThreadMesg> tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
                     Window.Dispatcher.Invoke(new Action(() =>
                     {

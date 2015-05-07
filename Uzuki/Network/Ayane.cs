@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Uzuki.Dialogs.MainWindow;
 
 namespace Uzuki.Network
 {
@@ -26,7 +28,26 @@ namespace Uzuki.Network
             return content;
         }
 
-        private static MemoryStream CopyAndClose(Stream inputStream)
+        public static String getDAT(String URL)
+        {
+            //2ch.netのdatとき
+            if (Regex.IsMatch(new Uri(URL).Host, @".*(\.2ch\.net|\.bbspink\.com)") && Regex.IsMatch(URL, @".*\.dat") && hasValidAPIKey())
+            {
+                return Kana.get2chDAT(URL);
+            }
+            //普通と同じなら処理をいつものやつに回す
+            return getHttp(URL);
+        }
+
+        static bool hasValidAPIKey()
+        {
+            if (SingletonManager.MainWindowSingleton.SetMannage.NetAPIKEY == "") return false;
+            if (SingletonManager.MainWindowSingleton.SetMannage.NetHMKEY == "") return false;
+            if (SingletonManager.MainWindowSingleton.SetMannage.NetX2chUA == "") return false;
+            return true;
+        }
+
+        public static MemoryStream CopyAndClose(Stream inputStream)
         {
             const int readSize = 256;
             byte[] buffer = new byte[readSize];

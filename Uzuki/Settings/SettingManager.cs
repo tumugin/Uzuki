@@ -22,6 +22,10 @@ namespace Uzuki.Settings
         public CookieContainer Cookie = new CookieContainer();
         public String BBSMenuPath { get; set; }
         public bool UseBlackTheme { get; set; }
+        //マズイですよしぇんぱい！
+        public String NetAPIKEY {get; set;}
+        public String NetHMKEY { get; set; }
+        public String NetX2chUA { get; set; }
         //履歴
         public ObservableCollection<_2ch.BBSThread> ThreadHistoryList = new ObservableCollection<_2ch.BBSThread>();
 
@@ -29,6 +33,9 @@ namespace Uzuki.Settings
             //C#6.0に対応していない為、今はコンストラクタで設定する
             BBSMenuPath = "http://2ch.sc/bbsmenu.html";
             UseBlackTheme = true;
+            NetAPIKEY = "";
+            NetHMKEY = "";
+            NetX2chUA = "";
         }
         public void SaveSettings()
         {

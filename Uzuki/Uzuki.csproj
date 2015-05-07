@@ -115,6 +115,7 @@
     <Compile Include="ImageAPI\imgur\imgur.cs" />
     <Compile Include="Network\Ayaka.cs" />
     <Compile Include="Network\Ayane.cs" />
+    <Compile Include="Network\Kana.cs" />
     <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="ThemeColor\ThemeSelector.cs" />
     <Compile Include="UpdateChecker\UpdateNotify.cs" />
