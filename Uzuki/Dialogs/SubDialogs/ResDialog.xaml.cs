@@ -27,6 +27,9 @@ namespace Uzuki.Dialogs.SubDialogs
         {
             InitializeComponent();
             this.DataContext = Resdata;
+            //ウィンドウ位置を使いやすい位置に
+            this.Top = SingletonManager.MainWindowSingleton.Top;
+            this.Left = SingletonManager.MainWindowSingleton.Left;
         }
         public class ResClass : Uzuki._2ch.Objects.ThreadMesg
         {

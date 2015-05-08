@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Uzuki._2ch.Write;
+using Uzuki.Dialogs.MainWindow;
 
 namespace Uzuki.Dialogs.WriteWindow
 {
@@ -29,6 +30,9 @@ namespace Uzuki.Dialogs.WriteWindow
         public WriteWindow()
         {
             InitializeComponent();
+            //ウィンドウ位置を使いやすい位置に
+            this.Top = SingletonManager.MainWindowSingleton.Top;
+            this.Left = SingletonManager.MainWindowSingleton.Left;
         }
 
         //書き込みボタン

@@ -7,7 +7,9 @@ using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Interop;
 using System.Xml.Serialization;
+using Uzuki.Dialogs.MainWindow;
 
 namespace Uzuki.Settings
 {
@@ -27,6 +29,9 @@ namespace Uzuki.Settings
         public String NetHMKEY { get; set; }
         public String NetX2chUA { get; set; }
         public String Net2chUserAgent { get; set; }
+        //ウィンドウ位置
+        public Ayana.WINDOWPLACEMENT WindowPlacement;
+        public bool hasWindowSetValue = false;
         //履歴
         public ObservableCollection<_2ch.BBSThread> ThreadHistoryList = new ObservableCollection<_2ch.BBSThread>();
 
@@ -41,6 +46,11 @@ namespace Uzuki.Settings
         }
         public void SaveSettings()
         {
+            //彩奈
+            var hwnd = new WindowInteropHelper(SingletonManager.MainWindowSingleton).Handle;
+            Ayana.NativeMethods.GetWindowPlacement(hwnd, out WindowPlacement);
+            hasWindowSetValue = true;
+            //シリアライズ
             XmlSerializer serializer = new XmlSerializer(typeof(SettingManager));
             StreamWriter sw = new StreamWriter(GetAppPath() + @"\" + SETTING_FILE_NAME, false, new System.Text.UTF8Encoding(false));
             serializer.Serialize(sw, this);
@@ -79,6 +89,8 @@ namespace Uzuki.Settings
             SettingManager sm = (SettingManager)serializer.Deserialize(sw);
             sw.Close();
             sm.LoadCookie();
+            //ウィンドウ位置ロード
+            if (sm.hasWindowSetValue) Ayana.NativeMethods.SetWindowPlacement(new WindowInteropHelper(SingletonManager.MainWindowSingleton).Handle, ref sm.WindowPlacement);
             return sm;
         }
 

@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls.Dialogs;
+using Uzuki.Dialogs.MainWindow;
 
 namespace Uzuki.Dialogs.SubDialogs
 {
@@ -33,6 +34,9 @@ namespace Uzuki.Dialogs.SubDialogs
         {
             InitializeComponent();
             this.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Inverted;
+            //ウィンドウ位置を使いやすい位置に
+            this.Top = SingletonManager.MainWindowSingleton.Top;
+            this.Left = SingletonManager.MainWindowSingleton.Left;
         }
         public void ImageGet(String url)
         {
