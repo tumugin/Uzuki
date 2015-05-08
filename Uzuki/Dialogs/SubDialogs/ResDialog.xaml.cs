@@ -36,7 +36,7 @@ namespace Uzuki.Dialogs.SubDialogs
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
-            Uri ur = new Uri(SingletonManager.MainWindowSingleton.BoardURL);
+            Uri ur = new Uri(SingletonManager.MainWindowSingleton.SelectedThread.BoardURL);
             writewindow.MessageTextBox.Text = ">>" + Resdata.Count;
             writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SingletonManager.MainWindowSingleton.SelectedThread.UnixTime.ToString() + "/";
             writewindow.cc = SingletonManager.MainWindowSingleton.SetMannage.Cookie;

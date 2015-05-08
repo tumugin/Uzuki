@@ -143,6 +143,8 @@ namespace Uzuki.Dialogs.MainWindow
             {
                 SetMannage.ThreadHistoryList.Insert(0,th);
             }
+            //BoardURLも更新しておく
+            BoardURL = th.BoardURL;
             //クソッタレ
             SelectedThread = th;
             gt.URL = th.DATURL;

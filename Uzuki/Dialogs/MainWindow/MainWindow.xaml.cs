@@ -58,7 +58,7 @@ namespace Uzuki.Dialogs.MainWindow
         void ReplyMenuItem_Click(object sender, RoutedEventArgs e)
         {
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
-            Uri ur = new Uri(BoardURL);
+            Uri ur = new Uri(SelectedThread.BoardURL);
             writewindow.MessageTextBox.Text = ">>" + (ThreadView.ThreadListView.SelectedIndex + 1);
             writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SelectedThread.UnixTime.ToString() + "/";
             writewindow.cc = SetMannage.Cookie;
