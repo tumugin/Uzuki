@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Uzuki.Settings
 {
+    //参考:http://grabacr.net/archives/1585
     public class Ayana
     {
         public class NativeMethods
