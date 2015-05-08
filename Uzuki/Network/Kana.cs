@@ -105,7 +105,7 @@ namespace Uzuki.Network
             //リクエストする
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
             req.Method = "POST";
-            req.UserAgent = "DOLIB/1.00'";
+            req.UserAgent = SingletonManager.MainWindowSingleton.SetMannage.Net2chUserAgent;
             req.ContentType = "application/x-www-form-urlencoded";
             req.ContentLength = senddata.Length;
             //データの書き込み

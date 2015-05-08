@@ -41,9 +41,10 @@ namespace Uzuki.Network
 
         static bool hasValidAPIKey()
         {
-            if (SingletonManager.MainWindowSingleton.SetMannage.NetAPIKEY == "") return false;
-            if (SingletonManager.MainWindowSingleton.SetMannage.NetHMKEY == "") return false;
-            if (SingletonManager.MainWindowSingleton.SetMannage.NetX2chUA == "") return false;
+            if (String.IsNullOrEmpty(SingletonManager.MainWindowSingleton.SetMannage.NetAPIKEY)) return false;
+            if (String.IsNullOrEmpty(SingletonManager.MainWindowSingleton.SetMannage.NetHMKEY)) return false;
+            if (String.IsNullOrEmpty(SingletonManager.MainWindowSingleton.SetMannage.NetX2chUA)) return false;
+            if (String.IsNullOrEmpty(SingletonManager.MainWindowSingleton.SetMannage.Net2chUserAgent)) return false;
             return true;
         }
 

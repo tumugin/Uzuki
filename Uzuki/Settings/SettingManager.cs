@@ -26,6 +26,7 @@ namespace Uzuki.Settings
         public String NetAPIKEY {get; set;}
         public String NetHMKEY { get; set; }
         public String NetX2chUA { get; set; }
+        public String Net2chUserAgent { get; set; }
         //履歴
         public ObservableCollection<_2ch.BBSThread> ThreadHistoryList = new ObservableCollection<_2ch.BBSThread>();
 
@@ -36,6 +37,7 @@ namespace Uzuki.Settings
             NetAPIKEY = "";
             NetHMKEY = "";
             NetX2chUA = "";
+            Net2chUserAgent = "";
         }
         public void SaveSettings()
         {
