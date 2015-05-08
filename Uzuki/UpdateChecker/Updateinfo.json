@@ -1,5 +1,5 @@
 ﻿{
-"Version":"1.0.1.0",
-"UpdateLog":"一部の2ch.scのスレが正しく読み込めていなかったバグを修正しました",
-"URL":"https://github.com/kazukioishi/Uzuki/tree/master/Uzuki"
+"Version":"1.0.2.0",
+"UpdateLog":"2ch.netに対応しました(詳しくはリリース記事をご覧ください)",
+"URL":"https://github.com/kazukioishi/Uzuki/releases/tag/Ver1.0.2"
 }
