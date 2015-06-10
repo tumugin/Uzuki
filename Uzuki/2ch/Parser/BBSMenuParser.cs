@@ -16,9 +16,9 @@ namespace Uzuki._2ch.Parser
             foreach (String str in htmlRow)
             {    
                 //グループの始まり
-                if (System.Text.RegularExpressions.Regex.IsMatch(str,@"<BR><BR><B>(.*.)<\/B><BR>"))
+                if (System.Text.RegularExpressions.Regex.IsMatch(str,@"(?i)<BR><BR><B>(.*.)<\/B><BR>"))
                 {
-                    System.Text.RegularExpressions.MatchCollection mc = System.Text.RegularExpressions.Regex.Matches(str, @"<BR><BR><B>(.*.)<\/B><BR>");
+                    System.Text.RegularExpressions.MatchCollection mc = System.Text.RegularExpressions.Regex.Matches(str, @"(?i)<BR><BR><B>(.*.)<\/B><BR>");
                     GroupName = mc[0].Groups[1].Value;
                 }
                 //リンク処理
