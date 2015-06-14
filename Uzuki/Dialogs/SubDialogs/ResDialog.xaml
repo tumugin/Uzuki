@@ -15,7 +15,7 @@
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel Margin="5">
                 <TextBlock x:Name="tBlock" TextWrapping="Wrap" FontWeight="Normal" FontSize="13" Foreground="#FF515151">
                 <Run Text="{Binding Count}" />
@@ -25,7 +25,7 @@
                 <Run Text="{Binding ID}" />
                 </TextBlock>
                 <TextBlock TextWrapping="Wrap" Margin="5" FontSize="15">
-                <link:HyperlinkText>
+                <link:HyperlinkText TextWrapping="Wrap">
                     <link:HyperlinkText.Inline>
                         <Binding Path="Message" />
                     </link:HyperlinkText.Inline>

@@ -80,7 +80,7 @@
                                     <Run Text="{Binding ID}" />
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="5" FontSize="15">
-                                    <link:HyperlinkText>
+                                    <link:HyperlinkText TextWrapping="Wrap">
                                         <link:HyperlinkText.Inline>
                                             <Binding Path="Message" />
                                         </link:HyperlinkText.Inline>
