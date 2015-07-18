@@ -28,7 +28,7 @@ namespace Uzuki.Dialogs.SubDialogs
     /// </summary>
     public partial class ImagePreviewDialog : MetroWindow
     {
-        String browserurl;
+        public String URL;
 
         public ImagePreviewDialog()
         {
@@ -38,6 +38,42 @@ namespace Uzuki.Dialogs.SubDialogs
             this.Top = SingletonManager.MainWindowSingleton.Top;
             this.Left = SingletonManager.MainWindowSingleton.Left;
         }
+
+        async void ImageGetAsync(String URL)
+        {
+            BitmapFrame bf = null;
+            Exception exp = null;
+            await Task.Run(() =>
+            {
+                try
+                {
+                    WebClient wc = new WebClient();
+                    Stream stream = wc.OpenRead(new Uri(URL));
+                    Bitmap bitmap = new Bitmap(stream);
+                    stream.Close();
+                    Stream st = new MemoryStream();
+                    bitmap.Save(st, ImageFormat.Bmp);
+                    st.Seek(0, SeekOrigin.Begin);
+                    bf = BitmapFrame.Create(st, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    st.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    exp = ex;
+                }
+            });
+            if (exp == null)
+            {
+                progBar.Visibility = Visibility.Collapsed;
+                imageView.Source = bf;
+            }
+            else
+            {
+                await this.ShowMessageAsync("エラー", exp.Message);
+                this.Close();
+            }
+        }
+
         public void ImageGet(String url)
         {
             ImagegetThread it = new ImagegetThread();
@@ -46,7 +82,6 @@ namespace Uzuki.Dialogs.SubDialogs
             it.Window = this;
             Thread th = new Thread(it.getImage);
             th.Start();
-            browserurl = it.URL;
         }
 
         class ImagegetThread
@@ -64,22 +99,22 @@ namespace Uzuki.Dialogs.SubDialogs
                     wc.OpenReadAsync(new Uri(URL));
                 }
                 catch(Exception ex) {
-                    Window.Dispatcher.Invoke(new Action(() =>
+                    Window.Dispatcher.Invoke(() =>
                     {
                         ((MetroWindow)Window).ShowMessageAsync("エラー", ex.Message);
                         //Window.Close();
-                    }));
+                    });
                 }
             }
 
             void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
             {
                 //イベントが飛んでこない訴訟
-                Window.Dispatcher.Invoke(new Action(() =>
+                Window.Dispatcher.Invoke(() =>
                 {
                     Window.progBar.Value = e.ProgressPercentage;
                     Debug.WriteLine(e.ProgressPercentage);
-                }));
+                });
             }
 
             void wc_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
@@ -101,26 +136,32 @@ namespace Uzuki.Dialogs.SubDialogs
                     Stream st = new MemoryStream();
                     bitmap.Save(st, ImageFormat.Bmp);
                     st.Seek(0, SeekOrigin.Begin);
-                    Window.Dispatcher.Invoke(new Action(() =>
+                    Window.Dispatcher.Invoke(() =>
                     {
                         Window.progBar.Visibility = Visibility.Collapsed;
                         image.Source = BitmapFrame.Create(st, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                    }));
+                    });
                     st.Dispose();
                 }
                 catch(Exception ex) {
-                    Window.Dispatcher.Invoke(new Action(() =>
+                    Window.Dispatcher.Invoke(() =>
                     {
                         ((MetroWindow)Window).ShowMessageAsync("エラー",ex.Message);
                         //Window.Close();
-                    }));
+                    });
                 }
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(browserurl);
+            Process.Start(URL);
+        }
+
+        private void MetroWindow_ContentRendered(object sender, EventArgs e)
+        {
+            //画像取得
+            ImageGetAsync(URL);
         }
     }
 }

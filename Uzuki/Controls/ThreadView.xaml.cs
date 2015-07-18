@@ -64,7 +64,7 @@ namespace Uzuki.Controls
             if (Regex.IsMatch(URL,"^.*.(jpg|gif|bmp|png|jpeg).*$"))
             {
                 ImagePreviewDialog diag = new ImagePreviewDialog();
-                diag.ImageGet(URL);
+                diag.URL = URL;
                 diag.Show();
             }else{
                 Process.Start(URL);

@@ -8,7 +8,7 @@
         BorderThickness="1"
         EnableDWMDropShadow="True"
         ResizeMode="CanResizeWithGrip"
-        Title="ImagePreviewDialog" Height="600" Width="600">
+        Title="ImagePreviewDialog" Height="600" Width="600" ContentRendered="MetroWindow_ContentRendered">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Content="OPEN IN BROWSER" Click="Button_Click" />
