@@ -148,7 +148,7 @@ namespace Uzuki.Dialogs.MainWindow
         //検索ボックス
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var query = from th in Threadlist where th.Title.Contains(SearchTextbox.Text) select th;
+            var query = from th in Threadlist where th.Title.IndexOf(SearchTextbox.Text,StringComparison.OrdinalIgnoreCase) != -1 select th;
             ObservableCollection<_2ch.BBSThread> list = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
             ThreadList.ThreadListView.ItemsSource = list;
         }
