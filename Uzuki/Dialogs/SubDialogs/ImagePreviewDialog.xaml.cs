@@ -41,11 +41,10 @@ namespace Uzuki.Dialogs.SubDialogs
 
         async void ImageGetAsync(String URL)
         {
-            BitmapFrame bf = null;
-            Exception exp = null;
-            await Task.Run(() =>
+            try
             {
-                try
+                BitmapFrame bf = null;
+                await Task.Run(() =>
                 {
                     WebClient wc = new WebClient();
                     Stream stream = wc.OpenRead(new Uri(URL));
@@ -56,20 +55,13 @@ namespace Uzuki.Dialogs.SubDialogs
                     st.Seek(0, SeekOrigin.Begin);
                     bf = BitmapFrame.Create(st, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
                     st.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    exp = ex;
-                }
-            });
-            if (exp == null)
-            {
+                });
                 progBar.Visibility = Visibility.Collapsed;
                 imageView.Source = bf;
             }
-            else
+            catch (Exception ex)
             {
-                await this.ShowMessageAsync("エラー", exp.Message);
+                await this.ShowMessageAsync("エラー", ex.Message);
                 this.Close();
             }
         }

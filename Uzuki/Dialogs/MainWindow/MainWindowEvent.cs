@@ -98,7 +98,7 @@ namespace Uzuki.Dialogs.MainWindow
         {
             public String URL;
             public MainWindow Window;
-            //リスト先駆でスレリストを更新
+            //スレリストを更新
             public void getListAsync()
             {
                 try
@@ -129,11 +129,10 @@ namespace Uzuki.Dialogs.MainWindow
         }
 
         //スレッド選択
-        void ThreadListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        async void ThreadListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //if (ThreadList.ThreadListView.SelectedItem == null) return;
             StatusLabel.Content = "スレッド更新中...";
-            GetThreadAsync gt = new GetThreadAsync();
             //親を取得
             ListView lview = (ListView)sender;
             _2ch.BBSThread th = (_2ch.BBSThread) lview.SelectedItem;
@@ -147,12 +146,31 @@ namespace Uzuki.Dialogs.MainWindow
             BoardURL = th.BoardURL;
             //クソッタレ
             SelectedThread = th;
-            gt.URL = th.DATURL;
-            gt.Window = this;
-            gt.ThreadName = th.Title;
-            gt.BThread = th;
-            Thread thread = new Thread(gt.getListAsync);
-            thread.Start();
+
+            //ここから別スレッドで
+            ObservableCollection<_2ch.Objects.ThreadMesg> tlist = null;
+            try
+            {
+                await Task.Run(() =>
+                {
+                    String text = Ayane.getDAT(th.DATURL);
+                    tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
+                    //履歴アイテムの情報を更新
+                    var historyitem = from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm;
+                    historyitem.First().ResCount = tlist.Count();
+                    
+                });
+                BackgroundLabel.Text = th.Title;
+                BBSThread = tlist;
+                ThreadView.ThreadListView.ItemsSource = BBSThread;
+                WPFUtil.DoEvents(); //強制再描画
+                try { ThreadView.ThreadListView.ScrollIntoView(ThreadView.ThreadListView.Items[th.ScroolPosItem]); } catch { }
+                StatusLabel.Content = "準備完了";
+            }
+            catch(Exception ex)
+            {
+                StatusLabel.Content = ex.Message;
+            }
         }
 
         //非同期的にスレ一覧を取ってくるぞ
@@ -185,6 +203,7 @@ namespace Uzuki.Dialogs.MainWindow
                         if (setScrollPos) scrollProvider.SetScrollPercent(scrollProvider.HorizontalScrollPercent, sPos);
                         Window.StatusLabel.Content = "準備完了";
                     }));
+
                 }
                 catch (Exception ex)
                 {
