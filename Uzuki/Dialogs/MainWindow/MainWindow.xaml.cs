@@ -52,7 +52,7 @@ namespace Uzuki.Dialogs.MainWindow
         private void ThreadViewListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var thread = (from _2ch.BBSThread itm in SetMannage.ThreadHistoryList where itm.DATURL == SelectedThread.DATURL select itm).First();
-            thread.ScroolPosItem = ((ListView)sender).SelectedIndex;
+            if(((ListView)sender).SelectedIndex != -1) thread.ScroolPosItem = ((ListView)sender).SelectedIndex;
         }
 
         void ReplyMenuItem_Click(object sender, RoutedEventArgs e)
@@ -135,14 +135,7 @@ namespace Uzuki.Dialogs.MainWindow
         {
             if (SelectedThread == null) return;
             StatusLabel.Content = "スレッド更新中...";
-            GetThreadAsync gt = new GetThreadAsync();
-            gt.BThread = SelectedThread;
-            gt.setScrollPos = true;
-            gt.URL = SelectedThread.DATURL;
-            gt.Window = this;
-            gt.ThreadName = SelectedThread.Title;
-            Thread thread = new Thread(gt.getListAsync);
-            thread.Start();
+            updateThreadView(SelectedThread,false);
         }
 
         //検索ボックス

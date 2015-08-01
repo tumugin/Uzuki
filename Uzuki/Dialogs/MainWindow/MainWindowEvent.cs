@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
@@ -129,7 +130,7 @@ namespace Uzuki.Dialogs.MainWindow
         }
 
         //スレッド選択
-        async void ThreadListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void ThreadListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //if (ThreadList.ThreadListView.SelectedItem == null) return;
             StatusLabel.Content = "スレッド更新中...";
@@ -142,11 +143,24 @@ namespace Uzuki.Dialogs.MainWindow
             {
                 SetMannage.ThreadHistoryList.Insert(0,th);
             }
+            else
+            {
+                //ダブリがある時は上に持っていく
+                var item = from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm;
+                var clone = item.First();
+                SetMannage.ThreadHistoryList.Remove(item.First());
+                SetMannage.ThreadHistoryList.Insert(0,clone);
+            }
             //BoardURLも更新しておく
             BoardURL = th.BoardURL;
             //クソッタレ
             SelectedThread = th;
+            //update
+            updateThreadView(th);
+        }
 
+        async void updateThreadView(_2ch.BBSThread th,bool updateScroll = true)
+        {
             //ここから別スレッドで
             ObservableCollection<_2ch.Objects.ThreadMesg> tlist = null;
             try
@@ -154,64 +168,22 @@ namespace Uzuki.Dialogs.MainWindow
                 await Task.Run(() =>
                 {
                     String text = Ayane.getDAT(th.DATURL);
-                    tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
+                    String decodetext = HttpUtility.HtmlDecode(text);
+                    tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(decodetext));
                     //履歴アイテムの情報を更新
                     var historyitem = from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm;
                     historyitem.First().ResCount = tlist.Count();
-                    
                 });
                 BackgroundLabel.Text = th.Title;
                 BBSThread = tlist;
                 ThreadView.ThreadListView.ItemsSource = BBSThread;
                 WPFUtil.DoEvents(); //強制再描画
-                try { ThreadView.ThreadListView.ScrollIntoView(ThreadView.ThreadListView.Items[th.ScroolPosItem]); } catch { }
+                if(updateScroll) try { ThreadView.ThreadListView.ScrollIntoView(ThreadView.ThreadListView.Items[th.ScroolPosItem]); } catch { }
                 StatusLabel.Content = "準備完了";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 StatusLabel.Content = ex.Message;
-            }
-        }
-
-        //非同期的にスレ一覧を取ってくるぞ
-        class GetThreadAsync
-        {
-            public String URL;
-            public MainWindow Window;
-            public String ThreadName;
-            public _2ch.BBSThread BThread;
-            public bool setScrollPos = false;
-            //リスト先駆でスレリストを更新
-            public void getListAsync()
-            {
-                try
-                {
-                    String text = Ayane.getDAT(URL);
-                    ObservableCollection<_2ch.Objects.ThreadMesg> tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(text));
-                    Window.Dispatcher.Invoke(new Action(() =>
-                    {
-                        Window.BackgroundLabel.Text = ThreadName;
-                        //スクロールバー
-                        var peer = ItemsControlAutomationPeer.CreatePeerForElement(Window.ThreadView.ThreadListView);
-                        var scrollProvider = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
-                        double sPos = scrollProvider.VerticalScrollPercent;
-                        if (sPos > 100) sPos = 100;
-                        Window.BBSThread = tlist;
-                        Window.ThreadView.ThreadListView.ItemsSource = Window.BBSThread;
-                        WPFUtil.DoEvents(); //強制再描画
-                        try { if (setScrollPos == false) Window.ThreadView.ThreadListView.ScrollIntoView(Window.ThreadView.ThreadListView.Items[BThread.ScroolPosItem]); } catch { }
-                        if (setScrollPos) scrollProvider.SetScrollPercent(scrollProvider.HorizontalScrollPercent, sPos);
-                        Window.StatusLabel.Content = "準備完了";
-                    }));
-
-                }
-                catch (Exception ex)
-                {
-                    Window.Dispatcher.Invoke(new Action(() =>
-                    {
-                        Window.StatusLabel.Content = ex.Message;
-                    }));
-                }
             }
         }
     }
