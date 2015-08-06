@@ -17,5 +17,6 @@
     <Grid>
         <Image x:Name="imageView" />
         <controls:MetroProgressBar x:Name="progBar" IsIndeterminate="True"/>
+        <Label x:Name="ExifLabel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top"/>
     </Grid>
 </controls:MetroWindow>

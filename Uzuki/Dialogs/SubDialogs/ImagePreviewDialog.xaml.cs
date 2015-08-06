@@ -37,6 +37,8 @@ namespace Uzuki.Dialogs.SubDialogs
             //ウィンドウ位置を使いやすい位置に
             this.Top = SingletonManager.MainWindowSingleton.Top;
             this.Left = SingletonManager.MainWindowSingleton.Left;
+            this.Width = SingletonManager.MainWindowSingleton.Width;
+            this.Height = SingletonManager.MainWindowSingleton.Height;
         }
 
         async void ImageGetAsync(String URL)
@@ -44,6 +46,7 @@ namespace Uzuki.Dialogs.SubDialogs
             try
             {
                 BitmapFrame bf = null;
+                String exiftext = "";
                 await Task.Run(() =>
                 {
                     WebClient wc = new WebClient();
@@ -55,9 +58,24 @@ namespace Uzuki.Dialogs.SubDialogs
                     st.Seek(0, SeekOrigin.Begin);
                     bf = BitmapFrame.Create(st, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
                     st.Dispose();
+                    //Load exif
+                    foreach (System.Drawing.Imaging.PropertyItem item in bitmap.PropertyItems)
+                    {
+                        if (item.Type == 2)
+                        {
+                            string val = System.Text.Encoding.ASCII.GetString(item.Value);
+                            val = val.Trim(new char[] { '\0' });
+                            exiftext += val.ToString() + "\n";
+                        }
+                        else
+                        {
+                            //exiftext += item.Id.ToString() + ":" + item.Len.ToString() + "\n";
+                        }
+                    }
                 });
                 progBar.Visibility = Visibility.Collapsed;
                 imageView.Source = bf;
+                ExifLabel.Content = exiftext;
             }
             catch (Exception ex)
             {
