@@ -47,7 +47,7 @@ namespace Uzuki._2ch.Parser
             String author = list[0].AuthorID;
             var query = from th in list where th.AuthorID == author select th;
             //2chがバグっててIDの記録に失敗している時は、とりあえずスレ主判定とかを無くす
-            if (author != null)
+            if (author != null && author != "ID:???")
             {
                 foreach (Objects.ThreadMesg mesg in query)
                 {
