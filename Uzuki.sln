@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uzuki", "Uzuki\Uzuki.csproj", "{04FD8FF1-D4DD-4CE0-AD4D-F6C1E8C3BEFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UzukiTest", "UzukiTest\UzukiTest.csproj", "{AF0620BA-EE3F-4061-9CA5-FF44AA26AAE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{04FD8FF1-D4DD-4CE0-AD4D-F6C1E8C3BEFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04FD8FF1-D4DD-4CE0-AD4D-F6C1E8C3BEFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04FD8FF1-D4DD-4CE0-AD4D-F6C1E8C3BEFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF0620BA-EE3F-4061-9CA5-FF44AA26AAE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0620BA-EE3F-4061-9CA5-FF44AA26AAE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0620BA-EE3F-4061-9CA5-FF44AA26AAE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0620BA-EE3F-4061-9CA5-FF44AA26AAE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
