@@ -41,8 +41,7 @@ namespace Uzuki.Dialogs.SubDialogs
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
             Uri ur = new Uri(SingletonManager.MainWindowSingleton.SelectedThread.BoardURL);
             writewindow.MessageTextBox.Text = ">>" + Resdata.Count;
-            writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SingletonManager.MainWindowSingleton.SelectedThread.UnixTime.ToString() + "/";
-            writewindow.cc = SingletonManager.MainWindowSingleton.SetMannage.Cookie;
+            writewindow.write2 = new _2ch.Write.Write2chThreadV2(ur.LocalPath, SingletonManager.MainWindowSingleton.SelectedThread.UnixTime.ToString(), ur.Host, SingletonManager.MainWindowSingleton.SetMannage.Cookie);
             writewindow.Show();
         }
     }

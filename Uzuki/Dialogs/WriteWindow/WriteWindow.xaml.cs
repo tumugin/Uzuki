@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,7 @@ namespace Uzuki.Dialogs.WriteWindow
     /// </summary>
     public partial class WriteWindow : MetroWindow
     {
-        public CookieContainer cc;
-        public String URL;
+        public Write2chThreadV2 write2;
 
         public WriteWindow()
         {
@@ -36,54 +36,42 @@ namespace Uzuki.Dialogs.WriteWindow
         }
 
         //書き込みボタン
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             StatusLabel.Content = "書き込み中...";
-            Thread thread = new Thread(WriteThread);
-            thread.Start();
-        }
-
-        void WriteThread()
-        {
+            String name = NameTextBox.Text;
+            String mail = MailTextBox.Text;
+            String message = MessageTextBox.Text;
             try
             {
-                Writer writer = new Writer(URL);
-                writer.CookieContainer = cc;
-                //writer.CookieContainer.Add(new Cookie("READJS", "off") { Domain = new Uri(writer.PostURL).Host});
-                //writer.CookieContainer.Add(new Cookie("MAIL", "") { Domain = new Uri(writer.PostURL).Host });
-                //writer.CookieContainer.Add(new Cookie("NAME", "") { Domain = new Uri(writer.PostURL).Host });
-                String Name = "", Mail = "", Message = "";
-                Dispatcher.Invoke(new Action(() =>
+                await Task.Run(() => {
+                    write2.Write(name, mail, message);
+                });
+                this.Close();//何もエラーがなければ閉じる
+            }
+            catch (Write2chThreadV2.Write2chCheckScreenException ex)
+            {
+                MetroDialogSettings ms = new MetroDialogSettings();
+                ms.NegativeButtonText = "キャンセル";
+                ms.AffirmativeButtonText = "書き込む";
+                ms.ColorScheme = MetroDialogColorScheme.Inverted;
+                MessageDialogResult mr = await this.ShowMessageAsync("確認画面", ex.Message, MessageDialogStyle.AffirmativeAndNegative,ms);
+                if (mr == MessageDialogResult.Affirmative)
                 {
-                    Name = NameTextBox.Text;
-                    Mail = MailTextBox.Text;
-                    Message = MessageTextBox.Text;
-                }));
-                WriteResponse wr = writer.Write(Name,Mail,Message);
-                wr.GetResult();
-                if (wr.Result == WriteResponse.WriteResult.True || wr.Result == WriteResponse.WriteResult.False)
-                {
-                    //成功時
-                    Dispatcher.Invoke(new Action(() =>
-                    {
-                        this.Close();
-                    }));
-                }
-                else
-                {
-                    //たぶん何かのエラーだ
-                    Dispatcher.Invoke(new Action(() =>
-                    {
-                        StatusLabel.Content = wr.Result;
-                    }));
+                    Button_Click(null, null);
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                Dispatcher.Invoke(new Action(() =>
+                MetroDialogSettings ms = new MetroDialogSettings();
+                ms.NegativeButtonText = "キャンセル";
+                ms.AffirmativeButtonText = "再試行";
+                ms.ColorScheme = MetroDialogColorScheme.Inverted;
+                MessageDialogResult mr = await this.ShowMessageAsync("Error", ex.Message, MessageDialogStyle.AffirmativeAndNegative,ms);
+                if (mr == MessageDialogResult.Affirmative)
                 {
-                    StatusLabel.Content = ex.ToString();
-                }));
+                    Button_Click(null, null);
+                }
             }
         }
 

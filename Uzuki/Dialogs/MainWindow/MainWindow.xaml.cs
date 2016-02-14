@@ -58,10 +58,9 @@ namespace Uzuki.Dialogs.MainWindow
         void ReplyMenuItem_Click(object sender, RoutedEventArgs e)
         {
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
-            Uri ur = new Uri(SelectedThread.BoardURL);
             writewindow.MessageTextBox.Text = ">>" + (ThreadView.ThreadListView.SelectedIndex + 1);
-            writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SelectedThread.UnixTime.ToString() + "/";
-            writewindow.cc = SetMannage.Cookie;
+            Uri ur = new Uri(SelectedThread.BoardURL);
+            writewindow.write2 = new _2ch.Write.Write2chThreadV2(ur.LocalPath, SelectedThread.UnixTime.ToString(), ur.Host, SetMannage.Cookie);
             writewindow.Show();
         }
 
@@ -154,8 +153,7 @@ namespace Uzuki.Dialogs.MainWindow
             }
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
             Uri ur = new Uri(SelectedThread.BoardURL);
-            writewindow.URL = ur.Scheme + "://" + ur.Host + "/test/read.cgi" + ur.LocalPath + "/" + SelectedThread.UnixTime.ToString() + "/";
-            writewindow.cc = SetMannage.Cookie;
+            writewindow.write2 = new _2ch.Write.Write2chThreadV2(ur.LocalPath,SelectedThread.UnixTime.ToString(),ur.Host,SetMannage.Cookie);
             writewindow.Show();
         }
 

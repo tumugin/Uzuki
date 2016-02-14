@@ -75,7 +75,17 @@ namespace Uzuki._2ch.Write
             String html = encode.GetString(context);
             Debug.WriteLine(html);
             //以下エラー判定
-            if (!html.Contains("書きこみました"))
+            if (!html.Contains("書きこみました") && html.Contains("書き込み確認"))
+            {
+                //書き込めていない
+                //エラー文字列をHTMLからテキストに変換する
+                Regex re = new Regex("<.*?>", RegexOptions.Singleline);
+                Regex br = new Regex("<br>", RegexOptions.Singleline);
+                string output = br.Replace(html, Environment.NewLine);
+                output = re.Replace(output, "");
+                throw new Write2chCheckScreenException(output);
+            }
+            else if(!html.Contains("書きこみました"))
             {
                 //書き込めていない
                 //エラー文字列をHTMLからテキストに変換する
@@ -85,10 +95,13 @@ namespace Uzuki._2ch.Write
                 output = re.Replace(output, "");
                 throw new Exception(output);
             }
-            
         }
-
         //Exception
-        public class Write2chWriteException : Exception { }
+        public class Write2chCheckScreenException : Exception
+        {
+            public Write2chCheckScreenException(string message) : base(message)
+            {
+            }
+        }
     }
 }
