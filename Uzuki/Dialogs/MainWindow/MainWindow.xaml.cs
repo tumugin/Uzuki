@@ -58,7 +58,7 @@ namespace Uzuki.Dialogs.MainWindow
         void ReplyMenuItem_Click(object sender, RoutedEventArgs e)
         {
             WriteWindow.WriteWindow writewindow = new WriteWindow.WriteWindow();
-            writewindow.MessageTextBox.Text = ">>" + (ThreadView.ThreadListView.SelectedIndex + 1);
+            writewindow.MessageTextBox.Text = ">>" + ((ThreadMesg)ThreadView.ThreadListView.SelectedItem).Number.ToString();
             Uri ur = new Uri(SelectedThread.BoardURL);
             writewindow.write2 = new _2ch.Write.Write2chThreadV2(ur.LocalPath, SelectedThread.UnixTime.ToString(), ur.Host, SetMannage.Cookie);
             writewindow.Show();

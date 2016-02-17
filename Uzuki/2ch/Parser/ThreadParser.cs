@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Uzuki._2ch.Objects;
 
 namespace Uzuki._2ch.Parser
 {
@@ -14,6 +16,7 @@ namespace Uzuki._2ch.Parser
         {
             String[] Row = text.Split(new string[] { "\n", Environment.NewLine }, StringSplitOptions.None);
             List<_2ch.Objects.ThreadMesg> list = new List<Objects.ThreadMesg>();
+            int count = 1;
             foreach (String line in Row)
             {
                 try
@@ -24,6 +27,8 @@ namespace Uzuki._2ch.Parser
                     mesg.Name = lineSplit[0];
                     mesg.Adress = lineSplit[1];
                     mesg.ID = lineSplit[2];
+                    mesg.Number = count;
+                    count++;
                     MatchCollection mc = Regex.Matches(mesg.ID, "ID:(.*.)");
                     if(mc.Count != 0) mesg.AuthorID = mc[0].Groups[0].Value;
                     //HTMLタグとかを取り除く
@@ -55,6 +60,28 @@ namespace Uzuki._2ch.Parser
                 }
             }
             return list;
+        }
+
+        public static void SortByRes(ref ObservableCollection<ThreadMesg> list)
+        {
+            //リストの順を元通りに直す
+            list = new ObservableCollection<ThreadMesg>(from itm in list orderby itm.Number ascending select itm);
+            //レスを抽出
+            var query = from th in list where th.isReply select th;
+            //コピーを作っておく(でないと変更時にエラーになる)
+            query = new ObservableCollection<ThreadMesg>(query);
+            foreach (ThreadMesg mesg in query)
+            {
+                //該当レス番号の下に移動させる
+                MatchCollection mc = Regex.Matches(mesg.Message, @">>(\d+)");
+                //TODO: 複数ある場合もあるけどとりあえず一つ目のやつで判定する(そのうち直す)
+                int id = int.Parse(mc[0].Groups[1].Value);
+                if(id <= list.Count && mc.Count == 1)
+                {
+                    ThreadMesg m = (from itm in list where itm.Number == id select itm).First();
+                    list.Move(list.IndexOf(mesg), list.IndexOf(m) + 1);
+                }
+            }
         }
     }
 }

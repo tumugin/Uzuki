@@ -9,6 +9,7 @@ namespace Uzuki._2ch.Objects
     public class ThreadMesg
     {
         public int Count { get; set; }
+        public int Number { get; set; }
         public String Name { get; set; }
         public String ID { get; set; }
         public String Adress { get; set; }

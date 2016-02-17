@@ -44,8 +44,8 @@
                         
                     </Trigger>
                     <DataTrigger Binding="{Binding isReply}" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource replyBrush}" />
-                        <Setter Property="Opacity" Value="0.8" />
+                        <!--<Setter Property="Background" Value="{DynamicResource replyBrush}" />
+                        <Setter Property="Opacity" Value="0.8" />-->
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -53,7 +53,7 @@
 
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border BorderThickness="5,0,0,0.1">
+                <Border>
                     <Border.Style>
                         <Style TargetType="Border">
                             <Style.Triggers>
@@ -63,17 +63,18 @@
                                 <DataTrigger Binding="{Binding isThreadNushi}" Value="False">
                                     <Setter Property="BorderBrush" Value="#FF707070" />
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding isReply}" Value="True">
+                                    <Setter Property="BorderThickness" Value="20,0,0,0.1" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding isReply}" Value="False">
+                                    <Setter Property="BorderThickness" Value="5,0,0,0.1" />
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                     <StackPanel Margin="5">
                         <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="13" Foreground="{DynamicResource IDTextBrush}">
-                            <TextBlock.Text>
-                                <MultiBinding Converter="{StaticResource listBoxIndexConverter}">
-                                    <Binding />
-                                    <Binding ElementName="ThreadListView" />
-                                </MultiBinding>
-                            </TextBlock.Text>
+                                    <Run Text="{Binding Number}" />
                                     <Run Text="" />
                                     <Run Text="{Binding Name}" />
                                     <Run Text="{Binding Adress}" />

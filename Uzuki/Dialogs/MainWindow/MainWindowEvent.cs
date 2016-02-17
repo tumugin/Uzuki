@@ -170,6 +170,8 @@ namespace Uzuki.Dialogs.MainWindow
                     String text = Ayane.getDAT(th.DATURL);
                     String decodetext = HttpUtility.HtmlDecode(text);
                     tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(decodetext));
+                    //ソートの有無
+                    _2ch.Parser.ThreadParser.SortByRes(ref tlist);
                     //履歴アイテムの情報を更新
                     var historyitem = from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm;
                     historyitem.First().ResCount = tlist.Count();
