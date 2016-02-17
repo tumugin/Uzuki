@@ -23,6 +23,23 @@ namespace Uzuki._2ch
                 if(PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ResCount"));
             }
         }
+        public decimal Trend
+        {
+            get
+            {
+                decimal diff = Tools.UnixTime.ToUnixTime(DateTime.Now) - UnixTime;
+                return ResCount / diff;
+            }
+        }
+        public decimal TrendViewText
+        {
+            get
+            {
+                //あまりにも目障りなので桁削ります
+                decimal diff = Tools.UnixTime.ToUnixTime(DateTime.Now) - UnixTime;
+                return Math.Round((ResCount / diff) * 1000000);
+            }
+        }
         public DateTime createdAt { get; set; }
         public long UnixTime { get; set; }
         public int ScroolPosItem;

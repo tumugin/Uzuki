@@ -182,5 +182,12 @@ namespace Uzuki.Dialogs.MainWindow
             window.cc = SetMannage.Cookie;
             window.Show();
         }
+
+        private void onTrendSelect(object sender, MouseButtonEventArgs e)
+        {
+            var query = from th in (ObservableCollection<_2ch.BBSThread>)ThreadList.ThreadListView.ItemsSource orderby th.Trend descending select th;
+            ObservableCollection<_2ch.BBSThread> list = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
+            ThreadList.ThreadListView.ItemsSource = list;
+        }
     }
 }

@@ -49,6 +49,7 @@
                             <Label Content="新しい順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_2"/>
                             <Label Content="書き込み数順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_3"/>
                             <Label Content="スレ順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_4"/>
+                            <Label Content="勢い" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="onTrendSelect"/>
                         </StackPanel>
                         <TextBox x:Name="SearchTextbox" DockPanel.Dock="Top" TextChanged="TextBox_TextChanged" controls:TextBoxHelper.Watermark="検索"/>
                         <v:ThreadList x:Name="ThreadList" DockPanel.Dock="Bottom"/>

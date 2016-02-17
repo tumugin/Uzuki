@@ -23,6 +23,7 @@
                         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Right">
                             <Run Text="{Binding createdAt, StringFormat=yyyy/MM/dd hh:mm:ss}" />
                             <Span Foreground="#FFAC2C2C"><Run Text="{Binding ResCount}"/></Span>
+                            <Span Foreground="#CEBDB7"><Run Text="{Binding TrendViewText,Mode=OneWay}"/></Span>
                         </TextBlock>
                     </StackPanel>
                 </Border>
