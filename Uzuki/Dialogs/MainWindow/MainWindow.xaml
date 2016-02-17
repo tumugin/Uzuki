@@ -36,7 +36,7 @@
                 <TabItem Header="板一覧"
                      controls:ControlsHelper.HeaderFontSize="18" >
                     <DockPanel>
-                        <StackPanel Margin="0" VerticalAlignment="Top" Background="#FF60B2E0" Orientation="Horizontal" Grid.ColumnSpan="2" DockPanel.Dock="Top">
+                        <StackPanel Margin="0" VerticalAlignment="Top" Background="{DynamicResource AccentColorBrush}" Orientation="Horizontal" Grid.ColumnSpan="2" DockPanel.Dock="Top">
                             <Label Content="更新" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown"/>
                         </StackPanel>
                         <v:BoardList x:Name="BoardList" DockPanel.Dock="Bottom"/>
@@ -45,7 +45,7 @@
                 <TabItem Header="スレッド一覧"
                      controls:ControlsHelper.HeaderFontSize="18" >
                     <DockPanel>
-                        <StackPanel Margin="0" VerticalAlignment="Top" Background="#FF60B2E0" Orientation="Horizontal" DockPanel.Dock="Top">
+                        <StackPanel Margin="0" VerticalAlignment="Top" Background="{DynamicResource AccentColorBrush}" Orientation="Horizontal" DockPanel.Dock="Top">
                             <Label Content="更新" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_1" FontWeight="Bold"/>
                             <Label Content="スレ立て" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_7" FontWeight="Bold"/>
                             <Label Content="新しい順" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_2"/>
@@ -60,7 +60,7 @@
                 <TabItem Header="履歴"
                      controls:ControlsHelper.HeaderFontSize="18">
                     <DockPanel>
-                        <StackPanel Margin="0" VerticalAlignment="Top" Background="#FF60B2E0" Orientation="Horizontal" DockPanel.Dock="Top">
+                        <StackPanel Margin="0" VerticalAlignment="Top" Background="{DynamicResource AccentColorBrush}" Orientation="Horizontal" DockPanel.Dock="Top">
                             <Label Content="履歴を全て削除" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_5"/>
                             <Label Content="選択を削除" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="11" Foreground="White" Cursor="Hand" MouseDown="Label_MouseDown_6"/>
                         </StackPanel>
