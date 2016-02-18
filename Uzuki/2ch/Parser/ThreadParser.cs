@@ -36,7 +36,7 @@ namespace Uzuki._2ch.Parser
                     mesg.Message = mesg.Message.Replace("<br>", Environment.NewLine);
                     mesg.Message = Regex.Replace(mesg.Message, "<.*?>", "");
                     mesg.Name = Regex.Replace(mesg.Name, "<.*?>", "");
-                    if (Regex.IsMatch(mesg.Message, @">>(\d+)"))
+                    if (Regex.IsMatch(mesg.Message, @">>([0-9]+)"))
                     {
                         //これはレスだ
                         mesg.isReply = true;
@@ -73,7 +73,7 @@ namespace Uzuki._2ch.Parser
             foreach (ThreadMesg mesg in query)
             {
                 //該当レス番号の下に移動させる
-                MatchCollection mc = Regex.Matches(mesg.Message, @">>(\d+)");
+                MatchCollection mc = Regex.Matches(mesg.Message, @">>([0-9]+)");
                 //TODO: 複数ある場合もあるけどとりあえず一つ目のやつで判定する(そのうち直す)
                 int id = int.Parse(mc[0].Groups[1].Value);
                 if(id <= list.Count && mc.Count == 1)
