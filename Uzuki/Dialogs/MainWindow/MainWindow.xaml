@@ -11,8 +11,8 @@
     Title="Uzuki::FriedChicken" Height="545" Width="906" Icon="/Uzuki;component/UzukiIcon.ico">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <RadioButton Content="ツリー" Style="{DynamicResource ToolBarButtonBaseStyle}" GroupName="akari" IsChecked="True"/>
-            <RadioButton Content="レス順" Style="{DynamicResource ToolBarButtonBaseStyle}" GroupName="akari"/>
+            <RadioButton Content="ツリー" Style="{DynamicResource ToolBarButtonBaseStyle}" GroupName="akari" IsChecked="True" Name="TreeViewRadioButton" Checked="OnTreeViewEnableCheck"/>
+            <RadioButton Content="レス順" Style="{DynamicResource ToolBarButtonBaseStyle}" GroupName="akari" Name="ResViewRadioButton" Checked="OnResViewEnableChecked"/>
             <Button Content="🔺" Click="Button_Click" />
             <Button Content="🔻" Click="Button_Click_1" />
             <Button Content="書き込み" Click="Button_Click_3" />

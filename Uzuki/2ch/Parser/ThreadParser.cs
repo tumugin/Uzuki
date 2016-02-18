@@ -83,5 +83,11 @@ namespace Uzuki._2ch.Parser
                 }
             }
         }
+
+        public static void ResetSort(ref ObservableCollection<ThreadMesg> list)
+        {
+            //リストの順を元通りに直す
+            list = new ObservableCollection<ThreadMesg>(from itm in list orderby itm.Number ascending select itm);
+        }
     }
 }

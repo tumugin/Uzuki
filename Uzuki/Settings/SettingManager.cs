@@ -22,27 +22,23 @@ namespace Uzuki.Settings
         //CookieContainerはXMLシリアライズ出来ない(許さない)
         [System.Xml.Serialization.XmlIgnore]
         public CookieContainer Cookie = new CookieContainer();
-        public String BBSMenuPath { get; set; }
-        public bool UseBlackTheme { get; set; }
+        public String BBSMenuPath { get; set; } = "http://2ch.sc/bbsmenu.html";
+        public bool UseBlackTheme { get; set; } = true;
         //マズイですよしぇんぱい！
-        public String NetAPIKEY {get; set;}
-        public String NetHMKEY { get; set; }
-        public String NetX2chUA { get; set; }
-        public String Net2chUserAgent { get; set; }
+        public String NetAPIKEY { get; set; } = "";
+        public String NetHMKEY { get; set; } = "";
+        public String NetX2chUA { get; set; } = "";
+        public String Net2chUserAgent { get; set; } = "";
         //ウィンドウ位置
         public Ayana.WINDOWPLACEMENT WindowPlacement;
         public bool hasWindowSetValue = false;
         //履歴
         public ObservableCollection<_2ch.BBSThread> ThreadHistoryList = new ObservableCollection<_2ch.BBSThread>();
+        //ツリー表示orレス順表示
+        public bool EnableTreeView { get; set; } = true;
+        public bool EnableResView { get; set; } = false;
 
         public SettingManager(){
-            //C#6.0に対応していない為、今はコンストラクタで設定する
-            BBSMenuPath = "http://2ch.sc/bbsmenu.html";
-            UseBlackTheme = true;
-            NetAPIKEY = "";
-            NetHMKEY = "";
-            NetX2chUA = "";
-            Net2chUserAgent = "";
         }
         public void SaveSettings()
         {

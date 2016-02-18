@@ -33,6 +33,9 @@ namespace Uzuki.Dialogs.MainWindow
         {
             //Load setting
             SetMannage = Settings.SettingManager.LoadSettings();
+            //Binding
+            TreeViewRadioButton.SetBinding(RadioButton.IsCheckedProperty, new Binding("EnableTreeView") { Source = SetMannage });
+            ResViewRadioButton.SetBinding(RadioButton.IsCheckedProperty, new Binding("EnableResView") { Source = SetMannage });
             //TESTING THEME
             if (SetMannage.UseBlackTheme) {
                 ThemeColor.MkThemeSelector.AddGlobalThemeDictonary(new Uri("/MahApps.Metro;component/Styles/Accents/BaseDark.xaml", UriKind.Relative));
@@ -171,7 +174,7 @@ namespace Uzuki.Dialogs.MainWindow
                     String decodetext = HttpUtility.HtmlDecode(text);
                     tlist = new ObservableCollection<_2ch.Objects.ThreadMesg>(_2ch.Parser.ThreadParser.ParseThread(decodetext));
                     //ソートの有無
-                    _2ch.Parser.ThreadParser.SortByRes(ref tlist);
+                    if(SetMannage.EnableTreeView) _2ch.Parser.ThreadParser.SortByRes(ref tlist);
                     //履歴アイテムの情報を更新
                     var historyitem = from itm in SetMannage.ThreadHistoryList where itm.DATURL == th.DATURL select itm;
                     historyitem.First().ResCount = tlist.Count();

@@ -189,5 +189,23 @@ namespace Uzuki.Dialogs.MainWindow
             ObservableCollection<_2ch.BBSThread> list = new ObservableCollection<_2ch.BBSThread>(query.ToList<Uzuki._2ch.BBSThread>());
             ThreadList.ThreadListView.ItemsSource = list;
         }
+
+        private void OnTreeViewEnableCheck(object sender, RoutedEventArgs e)
+        {
+            if (BBSThread != null && ThreadView != null)
+            {
+                _2ch.Parser.ThreadParser.SortByRes(ref BBSThread);
+                ThreadView.ThreadListView.ItemsSource = BBSThread;
+            }
+        }
+
+        private void OnResViewEnableChecked(object sender, RoutedEventArgs e)
+        {
+            if (BBSThread != null && ThreadView != null)
+            {
+                _2ch.Parser.ThreadParser.ResetSort(ref BBSThread);
+                ThreadView.ThreadListView.ItemsSource = BBSThread;
+            }
+        }
     }
 }
