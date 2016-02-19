@@ -28,6 +28,7 @@ namespace Uzuki._2ch
             get
             {
                 decimal diff = Tools.UnixTime.ToUnixTime(DateTime.Now) - UnixTime;
+                if (diff == 0) return 1;
                 return ResCount / diff;
             }
         }
