@@ -17,5 +17,7 @@ namespace Uzuki._2ch.Objects
         public String AuthorID { get; set; }
         public bool isThreadNushi { get; set; }
         public bool isReply { get; set; }
+        public String Nickname { get; set; } = "";
+        public String NicknameCount { get; set; } = "";
     }
 }

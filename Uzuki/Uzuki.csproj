@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="2ch\IDIdentifier\VoiceActor.cs" />
     <Compile Include="2ch\Objects\ThreadHistoryObj.cs" />
     <Compile Include="2ch\Objects\ThreadMesg.cs" />
     <Compile Include="2ch\Parser\BBSMenuParser.cs" />

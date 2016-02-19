@@ -79,6 +79,8 @@
                                     <Run Text="{Binding Name}" />
                                     <Run Text="{Binding Adress}" />
                                     <Run Text="{Binding ID}" />
+                                    <Run Text="{Binding Nickname}" />
+                                    <Run Text="{Binding NicknameCount}" />
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="5" FontSize="15">
                                     <link:HyperlinkText TextWrapping="Wrap">

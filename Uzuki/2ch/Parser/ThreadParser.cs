@@ -59,6 +59,30 @@ namespace Uzuki._2ch.Parser
                     mesg.isThreadNushi = true;
                 }
             }
+            //自動あだ名機能
+            Random Rand = new Random();
+            List<IDIdentifier.VoiceActor.NameItem> voiceactor = IDIdentifier.VoiceActor.getNameList();
+            foreach (ThreadMesg mes in list)
+            {
+                var sameid = from itm in list where itm.AuthorID == mes.AuthorID && itm.Nickname == "" select itm;
+                //値を変更するとリストのカウントも変わってしまうので一時的に別変数に退避させる
+                int sameidCount = sameid.Count();
+                //一つしか無いならor全くない(処理済み)は処理しない
+                if (sameid.Count() <= 1) continue;
+                int adcount = 1;
+                //ランダムな名前を取得する
+                var randomnames = from itm in voiceactor where itm.isUsed == false select itm;
+                //名前を使い切ったなら諦める
+                if (randomnames.Count() == 0) break;
+                IDIdentifier.VoiceActor.NameItem random = randomnames.ElementAt(Rand.Next(randomnames.Count() - 1));
+                random.isUsed = true;
+                foreach (ThreadMesg th in sameid)
+                {
+                    th.NicknameCount = "(" + adcount.ToString() + "/" + sameidCount.ToString() + ")";
+                    th.Nickname = random.Name;
+                    adcount++;
+                }
+            }
             return list;
         }
 
