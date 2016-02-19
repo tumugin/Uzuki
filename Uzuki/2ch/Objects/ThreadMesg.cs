@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Uzuki._2ch.Objects
 {
@@ -19,5 +20,12 @@ namespace Uzuki._2ch.Objects
         public bool isReply { get; set; }
         public String Nickname { get; set; } = "";
         public String NicknameCount { get; set; } = "";
+        public SolidColorBrush SBrush { get; set; } = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF707070"));
+        
+        public ThreadMesg()
+        {
+            //Freezeさせないとエラーになる
+            SBrush.Freeze();
+        }
     }
 }

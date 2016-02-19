@@ -74,12 +74,13 @@ namespace Uzuki._2ch.Parser
                 var randomnames = from itm in voiceactor where itm.isUsed == false select itm;
                 //名前を使い切ったなら諦める
                 if (randomnames.Count() == 0) break;
-                IDIdentifier.VoiceActor.NameItem random = randomnames.ElementAt(Rand.Next(randomnames.Count() - 1));
+                IDIdentifier.VoiceActor.NameItem random = randomnames.ElementAt(Rand.Next(randomnames.Count()));
                 random.isUsed = true;
                 foreach (ThreadMesg th in sameid)
                 {
                     th.NicknameCount = "(" + adcount.ToString() + "/" + sameidCount.ToString() + ")";
                     th.Nickname = random.Name;
+                    th.SBrush = random.SBrush;
                     adcount++;
                 }
             }

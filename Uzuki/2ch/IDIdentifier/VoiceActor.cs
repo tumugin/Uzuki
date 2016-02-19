@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Uzuki._2ch.IDIdentifier
 {
@@ -133,14 +134,19 @@ namespace Uzuki._2ch.IDIdentifier
         {
             public string Name;
             public bool isUsed = false;
+            public SolidColorBrush SBrush;
         }
 
         public static List<NameItem> getNameList()
         {
             List<NameItem> list = new List<NameItem>();
+            Random rand = new Random();
             foreach(string s in Names)
             {
-                list.Add(new NameItem { Name = s });
+                SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255,(byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256)));
+                //Freezeさせないとエラーになる
+                brush.Freeze();
+                list.Add(new NameItem { Name = s ,SBrush = brush});
             }
             return list;
         }

@@ -53,16 +53,10 @@
 
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border>
+                <Border BorderBrush="{Binding SBrush}">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding isThreadNushi}" Value="True">
-                                    <Setter Property="BorderBrush" Value="#FF9E2D2D" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding isThreadNushi}" Value="False">
-                                    <Setter Property="BorderBrush" Value="#FF707070" />
-                                </DataTrigger>
                                 <DataTrigger Binding="{Binding isReply}" Value="True">
                                     <Setter Property="BorderThickness" Value="20,0,0,0.1" />
                                 </DataTrigger>
@@ -79,8 +73,8 @@
                                     <Run Text="{Binding Name}" />
                                     <Run Text="{Binding Adress}" />
                                     <Run Text="{Binding ID}" />
-                                    <Run Text="{Binding Nickname}" />
-                                    <Run Text="{Binding NicknameCount}" />
+                                    <Run Text="{Binding Nickname}" Foreground="{Binding SBrush}"/>
+                                    <Run Text="{Binding NicknameCount}" Foreground="{Binding SBrush}"/>
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="5" FontSize="15">
                                     <link:HyperlinkText TextWrapping="Wrap">
