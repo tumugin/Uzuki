@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Uzuki._2ch.Objects;
 using Uzuki.Dialogs.SubDialogs;
 
 namespace Uzuki.Controls
@@ -41,7 +44,10 @@ namespace Uzuki.Controls
                 String linkText = linkRun.Text;
                 int index = int.Parse(linkText.Replace(">>", ""));
                 Dialogs.SubDialogs.ResDialog resdiag = new Dialogs.SubDialogs.ResDialog();
-                resdiag.Resdata = (_2ch.Objects.ThreadMesg)ThreadListView.Items[index - 1];
+                var list = Convert<ThreadMesg>(ThreadListView.Items);
+                var query = from itm in list where itm.Number == index select itm;
+                if (query.Count() == 0) return;
+                resdiag.Resdata = query.First();
                 resdiag.Resdata.Count = index;
                 resdiag.DataContext = resdiag.Resdata;
                 resdiag.Show();
@@ -69,6 +75,22 @@ namespace Uzuki.Controls
             }else{
                 Process.Start(URL);
             }
+        }
+
+        //observablecollectionを無理矢理生成する
+        //http://stackoverflow.com/questions/3559821/how-to-convert-ienumerable-to-observablecollection
+
+        public ObservableCollection<object> Convert(IEnumerable original)
+        {
+            return new ObservableCollection<object>(original.Cast<object>());
+        }
+        public ObservableCollection<T> Convert<T>(IEnumerable<T> original)
+        {
+            return new ObservableCollection<T>(original);
+        }
+        public ObservableCollection<T> Convert<T>(IEnumerable original)
+        {
+            return new ObservableCollection<T>(original.Cast<T>());
         }
     }
 }
