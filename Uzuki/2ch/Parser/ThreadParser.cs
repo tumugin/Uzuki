@@ -70,6 +70,19 @@ namespace Uzuki._2ch.Parser
                 //一つしか無いならor全くない(処理済み)は処理しない
                 if (sameid.Count() <= 1) continue;
                 int adcount = 1;
+                //あだ名リストに既にあるならそれを使う
+                var adanacache = from itm in IDIdentifier.IDCache.IDItemCacheList where itm.ID == mes.AuthorID select itm;
+                if(adanacache.Count() != 0)
+                {
+                    foreach (ThreadMesg th in sameid)
+                    {
+                        th.NicknameCount = "(" + adcount.ToString() + "/" + sameidCount.ToString() + ")";
+                        th.Nickname = adanacache.First().Nickname;
+                        th.SBrush = adanacache.First().Brush;
+                        adcount++;
+                    }
+                    continue;
+                }
                 //ランダムな名前を取得する
                 var randomnames = from itm in voiceactor where itm.isUsed == false select itm;
                 //名前を使い切ったなら諦める
@@ -83,6 +96,8 @@ namespace Uzuki._2ch.Parser
                     th.SBrush = random.SBrush;
                     adcount++;
                 }
+                //命名済みあだ名リストを更新
+                IDIdentifier.IDCache.IDItemCacheList.Add(new IDIdentifier.IDCache.IDItem { ID = mes.AuthorID, Nickname = random.Name ,Brush = random.SBrush});
             }
             return list;
         }
