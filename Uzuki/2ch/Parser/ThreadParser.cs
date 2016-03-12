@@ -118,6 +118,7 @@ namespace Uzuki._2ch.Parser
                 int id = int.Parse(mc[0].Groups[1].Value);
                 if(id <= list.Count && mc.Count == 1)
                 {
+                    if ((from itm in list where itm.Number == id select itm).Count() == 0) continue;
                     ThreadMesg m = (from itm in list where itm.Number == id select itm).First();
                     list.Move(list.IndexOf(mesg), list.IndexOf(m) + 1);
                 }
