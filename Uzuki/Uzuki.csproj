@@ -95,6 +95,9 @@
     <Compile Include="BugReporter\ErrorReporter.cs" />
     <Compile Include="Controls\HyperlinkText.cs" />
     <Compile Include="Controls\ListBoxIndexConverter.cs" />
+    <Compile Include="Controls\NGListViewControl.xaml.cs">
+      <DependentUpon>NGListViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ThreadList.xaml.cs">
       <DependentUpon>ThreadList.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
     <Compile Include="ThemeColor\ThemeSelector.cs" />
     <Compile Include="UpdateChecker\UpdateNotify.cs" />
     <Page Include="Controls\BoardList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NGListViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

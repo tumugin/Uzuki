@@ -9,13 +9,29 @@
         EnableDWMDropShadow="True"
         ResizeMode="NoResize"
         
-        Title="SETTING" Height="202" Width="620">
-    <Grid>
-        <Label Content="bbsmenu.htmlのURL" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" Width="128"/>
-        <TextBox x:Name="BBSMenuPathTextBox" HorizontalAlignment="Left" Height="26" Margin="138,11,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="462"/>
-        <CheckBox x:Name="UseBlackThemeCheckBox" Content="黒テーマを使用する(反映には再起動が必要です)" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Height="18" Width="257"/>
-        <Label Content="Uzuki::FriedChicken" HorizontalAlignment="Left" Margin="1,72,0,-35" VerticalAlignment="Top" FontSize="72" FontFamily="Yu Gothic Light" Opacity="0.5" Height="134" Width="611"/>
-        <Label Content="CodeName FriedChicken inspired by NewGeneration" HorizontalAlignment="Left" Margin="332,89,0,0" VerticalAlignment="Top" FontFamily="Yu Gothic Light" Opacity="0.8" Height="31" Width="280" RenderTransformOrigin="0.564,-1.097"/>
-        <Label x:Name="BuildVersionLabel" Content="Build Version:" HorizontalAlignment="Left" Margin="332,72,0,0" VerticalAlignment="Top" Opacity="0.8" FontFamily="Yu Gothic Light"/>
-    </Grid>
+        Title="SETTING" Height="507.333" Width="643.333">
+    <DockPanel>
+        <TabControl x:Name="tabControl" DockPanel.Dock="Top">
+            <TabItem Header="基本設定">
+                <DockPanel>
+                    <Grid Background="Transparent" DockPanel.Dock="Top" Height="Auto">
+                        <Label Content="bbsmenu.htmlのURL" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" Height="25" Width="128"/>
+                        <TextBox x:Name="BBSMenuPathTextBox" HorizontalAlignment="Left" Height="26" Margin="138,4,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="462"/>
+                        <CheckBox x:Name="UseBlackThemeCheckBox" Content="黒テーマを使用する(反映には再起動が必要です)" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Height="18" Width="257"/>
+                        <Label Content="Uzuki::FriedChicken" HorizontalAlignment="Left" Margin="16,89,0,0" VerticalAlignment="Top" FontSize="72" FontFamily="Yu Gothic Light" Opacity="0.5" Height="134" Width="611"/>
+                        <Label Content="CodeName FriedChicken inspired by NewGeneration" HorizontalAlignment="Left" Margin="347,96,0,0" VerticalAlignment="Top" FontFamily="Yu Gothic Light" Opacity="0.8" Height="31" Width="280" RenderTransformOrigin="0.564,-1.097"/>
+                        <Label x:Name="BuildVersionLabel" Content="Build Version:" HorizontalAlignment="Left" Margin="347,79,0,0" VerticalAlignment="Top" Opacity="0.8" FontFamily="Yu Gothic Light" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="NGID">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <Button Content="選択を削除" Style="{StaticResource AccentedSquareButtonStyle}"/>
+                    </StackPanel>
+                    <link:NGListViewControl x:Name="NGListView" DockPanel.Dock="Bottom"/>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </controls:MetroWindow>

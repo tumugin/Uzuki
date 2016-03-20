@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Uzuki.Controls.NGListViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Uzuki.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ListView Name="NGListView"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          ScrollViewer.PanningMode="VerticalOnly"
+          ScrollViewer.VerticalScrollBarVisibility="Auto"
+          VirtualizingPanel.IsVirtualizing="True"
+          VirtualizingPanel.ScrollUnit="Pixel"
+          Background="Transparent" BorderThickness="0">
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Margin="5">
+                    <Run Text="{Binding}" />
+                </TextBlock>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</UserControl>
