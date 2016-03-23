@@ -40,8 +40,15 @@ namespace Uzuki.Dialogs.MainWindow
             //キレそう
             MenuItem menuItem = (from MenuItem item in ((ContextMenu)ThreadView.ThreadListView.Resources["ItemContextMenu"]).Items where item.Name == "ReplyMenuItem" select item).First();
             MenuItem menuItem2 = (from MenuItem item in ((ContextMenu)ThreadView.ThreadListView.Resources["ItemContextMenu"]).Items where item.Name == "CopyMenuItem" select item).First();
+            MenuItem AddToNGIDMenuItem = (from MenuItem item in ((ContextMenu)ThreadView.ThreadListView.Resources["ItemContextMenu"]).Items where item.Name == "AddToNGIDMenuItem" select item).First();
             menuItem.Click += ReplyMenuItem_Click;
             menuItem2.Click += menuItem2_Click;
+            AddToNGIDMenuItem.Click += AddToNGIDMenuItem_Click;
+        }
+
+        private void AddToNGIDMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SingletonManager.MainWindowSingleton.SetMannage.NGIDCollection.Add(BBSThread[ThreadView.ThreadListView.SelectedIndex].AuthorID);
         }
 
         void menuItem2_Click(object sender, RoutedEventArgs e)

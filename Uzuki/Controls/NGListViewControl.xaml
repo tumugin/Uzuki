@@ -17,7 +17,7 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <TextBlock Margin="5">
-                    <Run Text="{Binding}" />
+                    <Run Text="{Binding Path=.}" />
                 </TextBlock>
             </DataTemplate>
         </ListView.ItemTemplate>

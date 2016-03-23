@@ -37,6 +37,8 @@ namespace Uzuki.Settings
         //ツリー表示orレス順表示
         public bool EnableTreeView { get; set; } = true;
         public bool EnableResView { get; set; } = false;
+        //NG list
+        public ObservableCollection<String> NGIDCollection = new ObservableCollection<String>();
 
         public SettingManager(){
         }

@@ -27,9 +27,9 @@
             <TabItem Header="NGID">
                 <DockPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                        <Button Content="選択を削除" Style="{StaticResource AccentedSquareButtonStyle}"/>
+                        <Button Content="選択を削除" Style="{StaticResource AccentedSquareButtonStyle}" Click="DeleteSelectedOnClick"/>
                     </StackPanel>
-                    <link:NGListViewControl x:Name="NGListView" DockPanel.Dock="Bottom"/>
+                    <link:NGListViewControl x:Name="NGListViewContainer" DockPanel.Dock="Bottom"/>
                 </DockPanel>
             </TabItem>
         </TabControl>

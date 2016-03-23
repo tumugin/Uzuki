@@ -20,6 +20,7 @@
             <ContextMenu x:Key="ItemContextMenu">
                 <MenuItem x:Name="ReplyMenuItem" Header="返信"/>
                 <MenuItem x:Name="CopyMenuItem" Header="コピー"/>
+                <MenuItem x:Name="AddToNGIDMenuItem" Header="NGIDに追加する"/>
             </ContextMenu>
         </ListView.Resources>
 
