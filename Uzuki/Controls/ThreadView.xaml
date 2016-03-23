@@ -69,11 +69,11 @@
                     </Border.Style>
                     <StackPanel Margin="5">
                         <TextBlock TextWrapping="Wrap" FontWeight="Normal" FontSize="13" Foreground="{DynamicResource IDTextBrush}">
-                                    <Run Text="{Binding Number}" />
+                                    <Run Text="{Binding Number}" FontWeight="ExtraBlack"/>
                                     <Run Text="" />
                                     <Run Text="{Binding Name}" />
                                     <Run Text="{Binding Adress}" />
-                                    <Run Text="{Binding ID}" />
+                                    <Run Text="{Binding AuthorID}" />
                                     <Run Text="{Binding Nickname}" Foreground="{Binding SBrush}"/>
                                     <Run Text="{Binding NicknameCount}" Foreground="{Binding SBrush}"/>
                         </TextBlock>

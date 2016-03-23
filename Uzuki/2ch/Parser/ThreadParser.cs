@@ -30,7 +30,7 @@ namespace Uzuki._2ch.Parser
                     mesg.Number = count;
                     count++;
                     MatchCollection mc = Regex.Matches(mesg.ID, "ID:(.*.)");
-                    if(mc.Count != 0) mesg.AuthorID = mc[0].Groups[0].Value;
+                    if(mc.Count != 0) mesg.AuthorID = mc[0].Groups[1].Value;
                     //HTMLタグとかを取り除く
                     mesg.Message = System.Web.HttpUtility.HtmlDecode(lineSplit[3]);
                     mesg.Message = mesg.Message.Replace("<br>", Environment.NewLine);
@@ -52,7 +52,7 @@ namespace Uzuki._2ch.Parser
             String author = list[0].AuthorID;
             var query = from th in list where th.AuthorID == author select th;
             //2chがバグっててIDの記録に失敗している時は、とりあえずスレ主判定とかを無くす
-            if (author != null && author != "ID:???")
+            if (author != null && author != "???")
             {
                 foreach (Objects.ThreadMesg mesg in query)
                 {
