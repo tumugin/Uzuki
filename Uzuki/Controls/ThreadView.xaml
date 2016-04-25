@@ -42,7 +42,7 @@
                         <Setter Property="Background" Value="{DynamicResource replyBrush}" />
                     </Trigger>
                     <Trigger Property="IsMouseOver" Value="True">
-                        
+
                     </Trigger>
                     <DataTrigger Binding="{Binding isReply}" Value="True">
                         <!--<Setter Property="Background" Value="{DynamicResource replyBrush}" />
@@ -78,11 +78,20 @@
                                     <Run Text="{Binding NicknameCount}" Foreground="{Binding SBrush}"/>
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="5" FontSize="15">
-                                    <link:HyperlinkText TextWrapping="Wrap">
-                                        <link:HyperlinkText.Inline>
-                                            <Binding Path="Message" />
-                                        </link:HyperlinkText.Inline>
-                                    </link:HyperlinkText>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding isInNG}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                            <link:HyperlinkText TextWrapping="Wrap">
+                                <link:HyperlinkText.Inline>
+                                    <Binding Path="Message" />
+                                </link:HyperlinkText.Inline>
+                             </link:HyperlinkText>
                         </TextBlock>
                     </StackPanel>
                 </Border>

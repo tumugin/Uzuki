@@ -18,6 +18,7 @@ namespace Uzuki._2ch.Objects
         public String AuthorID { get; set; }
         public bool isThreadNushi { get; set; }
         public bool isReply { get; set; }
+        public bool isInNG { get; set; } = false;
         public String Nickname { get; set; } = "";
         public String NicknameCount { get; set; } = "";
         public SolidColorBrush SBrush { get; set; } = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF707070"));

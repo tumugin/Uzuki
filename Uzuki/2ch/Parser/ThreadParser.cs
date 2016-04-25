@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Uzuki._2ch.Objects;
+using Uzuki.Dialogs.MainWindow;
 
 namespace Uzuki._2ch.Parser
 {
@@ -98,6 +99,14 @@ namespace Uzuki._2ch.Parser
                 }
                 //命名済みあだ名リストを更新
                 IDIdentifier.IDCache.IDItemCacheList.Add(new IDIdentifier.IDCache.IDItem { ID = mes.AuthorID, Nickname = random.Name ,Brush = random.SBrush});
+            }
+            //NGリストにあるかどうか確かめる
+            foreach(ThreadMesg th in list)
+            {
+                if(SingletonManager.MainWindowSingleton.SetMannage.NGIDCollection.Where(itm => itm == th.AuthorID).Count() != 0)
+                {
+                    th.isInNG = true;
+                }
             }
             return list;
         }
